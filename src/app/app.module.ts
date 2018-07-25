@@ -3,8 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
+import { BudgetPage } from '../pages/budget/budget';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
@@ -16,15 +15,16 @@ import { NgRedux, NgReduxModule } from 'ng2-redux';
 import { MyState, rootReducer } from '../store/store';
 
 import { INITIAL_STATE } from '../store/store';
+import { SchedulePage } from '../pages/schedule/schedule';
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
+    BudgetPage,
     HomePage,
+    LoginPage,
     TabsPage,
-    LoginPage
+    SchedulePage
   ],
   imports: [
     BrowserModule,
@@ -34,11 +34,11 @@ import { INITIAL_STATE } from '../store/store';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
+    BudgetPage,
     HomePage,
+    LoginPage,
     TabsPage,
-    LoginPage
+    SchedulePage
   ],
   providers: [
     StatusBar,

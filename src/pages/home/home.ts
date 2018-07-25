@@ -12,11 +12,13 @@ import { AlertController } from 'ionic-angular';
 export class HomePage {
   user : string;
   password : string;
+  tasks : any
 
   constructor(public navCtrl: NavController, private ngRedux: NgRedux<MyState>, public alertCtrl: AlertController) {
     this.user = this.ngRedux.getState().email;
     this.password = this.ngRedux.getState().password;
-    this.showAlert();
+    this.tasks =  [{title:"zacary", description:"todo"}, {title:"zacary2", description:"todo"}];
+    //this.showAlert();
   }
 
   showAlert() {

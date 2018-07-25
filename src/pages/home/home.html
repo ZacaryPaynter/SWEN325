@@ -8,13 +8,13 @@
   <h2>Welcome {{user}}</h2>
   <ion-list>
     <ion-item-sliding *ngFor="let item of tasks">
-      <ion-item>
+      <ion-item text-align='center'>
           <p>{{item.title}}</p>
       </ion-item>
       <ion-item-options side="right">
-          <button ion-button color="primary">
-            <ion-icon name="mail"></ion-icon>
-            Email
+          <button ion-button color="secondary">
+            <ion-icon name="checkmark"></ion-icon>
+            Complete
           </button>
         </ion-item-options>
     </ion-item-sliding>

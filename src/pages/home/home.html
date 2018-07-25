@@ -6,7 +6,20 @@
 
 <ion-content padding>
   <h2>Welcome {{user}}</h2>
-  <p>
-    This starter project is for SWEN325
-  </p>
+  <ion-list>
+      <ion-list-header>
+          Tasks
+      </ion-list-header>
+    <ion-item-sliding>
+      <ion-item>
+        <h2>{{user}}</h2>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="primary">
+          <ion-icon name="mail"></ion-icon>
+          Email
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>

@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { NgRedux } from 'ng2-redux';
 
 import { MyState } from '../../store/store';
-import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',

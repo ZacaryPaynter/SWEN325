@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { BudgetPage } from '../pages/budget/budget';
+import { BudgetPage } from '../pages/budget/budgetpage';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
@@ -15,7 +15,8 @@ import { NgRedux, NgReduxModule } from 'ng2-redux';
 import { MyState, rootReducer } from '../store/store';
 
 import { INITIAL_STATE } from '../store/store';
-import { SchedulePage } from '../pages/schedule/schedule';
+import { SchedulePage } from '../pages/schedule/schedulepage';
+import { HttpModule } from '../../node_modules/@angular/http';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { SchedulePage } from '../pages/schedule/schedule';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp), 
+    HttpModule,
     NgReduxModule
   ],
   bootstrap: [IonicApp],

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
-import { BudgetPage } from '../budget/budget';
+import { BudgetPage } from '../budget/budgetpage';
 import { HomePage } from '../home/home';
-import { SchedulePage } from '../schedule/schedule';
+import { SchedulePage } from '../schedule/schedulepage';
 
 @Component({
   selector: 'page-tabs',

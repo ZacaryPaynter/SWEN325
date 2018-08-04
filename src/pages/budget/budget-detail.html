@@ -1,0 +1,33 @@
+<ion-header>
+    <ion-navbar color='titleNavBar'>
+        <ion-title>
+            Enter Budget Details
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="gradient" padding>
+        <ion-card class="ion-card-border">
+          <form (submit)="createNewBudgetItem()">
+            <ion-item color="secondary"> 
+              <ion-label>Title</ion-label>
+              <ion-input type="text" [(ngModel)]="title" name="title"></ion-input> 
+            </ion-item>
+            <ion-item color="secondary">
+                <ion-label>Amount</ion-label>
+                <ion-input type="number" [(ngModel)]="amount" name="amount"></ion-input> 
+            </ion-item>
+            <ion-list radio-group [(ngModel)]="isIncome" name="isIncome">
+                    <ion-item color="secondary">
+                            <ion-label>Income</ion-label>
+                            <ion-radio value=1 ></ion-radio>
+                    </ion-item>
+                    <ion-item color="secondary">
+                            <ion-label>Outcome</ion-label>
+                            <ion-radio value=0 ></ion-radio>
+                    </ion-item>
+            </ion-list>
+            <button ion-button type="submit" block>Add Budget Item</button>
+            </form>
+          </ion-card>
+    </ion-content>

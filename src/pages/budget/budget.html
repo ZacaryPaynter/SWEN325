@@ -1,28 +1,43 @@
 <ion-header>
   <ion-navbar color='titleNavBar'>
     <ion-title>
-      Budget
+        {{user}}'s Budget
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding class="gradient"> 
-<h2>Budget Info</h2>
-<button ion-button (click)="createNewContact()">Add budget</button>
-<div>
-  <h3>Incomes</h3>
-  <ion-list>
-      <ion-item *ngFor="let item of budget">
-          <p *ngIf="item.income">{{item.title}} : {{item.amount}}</p>
+    <ion-card class="ion-card-border">
+        <button ion-item detail-none (click)="createNewBudget()" color="secondary"> 
+            Add New Budget Item
+            <ion-icon name="add-circle" item-end color="yellow"></ion-icon>
+          </button>
+    </ion-card>
+<ion-card class="ion-card-border">
+  <ion-card-header>
+    Current Budget Items:
+  </ion-card-header>
+  <ion-list class="list-of-budgets">
+      <ion-item *ngFor="let item of budget" color="secondary">
+          <ion-label>
+              {{item.title}}
+            </ion-label>
+            <div item-content>
+                <ion-icon name="add" [hidden]="!item.income" color="income"></ion-icon>
+                <ion-icon name="remove" [hidden]="item.income" color="outcome"></ion-icon>
+                 {{item.amount}}
+            </div>
       </ion-item>
   </ion-list>
-</div>
-<div>
-    <h3>Outcomes</h3>
-    <ion-list>
-        <ion-item *ngFor="let item of budget">
-            <p *ngIf="!item.income">{{item.title}} : {{item.amount}}</p>
-        </ion-item>
-    </ion-list>
-  </div>
+</ion-card>
+<ion-card class="ion-card-border">
+  <ion-item color="secondary">
+      <ion-label>
+          Remaining Spending Money:
+        </ion-label>
+        <div item-content>
+          $ {{spending}}
+        </div>
+  </ion-item>
+</ion-card>
 </ion-content>

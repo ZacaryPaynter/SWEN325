@@ -4,6 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { BudgetPage } from '../pages/budget/budgetpage';
+import { BudgetDetail } from '../pages/budget/budget-detail';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
@@ -22,6 +23,7 @@ import { HttpModule } from '../../node_modules/@angular/http';
   declarations: [
     MyApp,
     BudgetPage,
+    BudgetDetail,
     HomePage,
     LoginPage,
     TabsPage,
@@ -37,6 +39,7 @@ import { HttpModule } from '../../node_modules/@angular/http';
   entryComponents: [
     MyApp,
     BudgetPage,
+    BudgetDetail,
     HomePage,
     LoginPage,
     TabsPage,

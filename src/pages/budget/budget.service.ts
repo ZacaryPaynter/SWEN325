@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Budget  } from './budget';''
+import { Budget  } from './budget';
 import { Http, Response } from '@angular/http';
 
 @Injectable()
@@ -19,6 +19,7 @@ export class BudgetService {
 
     // post("/api/budget")
     createBudget(newBudget: Budget): Promise<void | Budget> {
+      console.log(newBudget.title);
       return this.http.post(this.BudgetsUrl, newBudget)
                  .toPromise()
                  .then(response => response.json() as Budget)
@@ -47,6 +48,6 @@ export class BudgetService {
     private handleError (error: any) {
       let errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-      console.error(errMsg); // log to console instead
+      console.error("Error coming frfom server: "+errMsg); // log to console instead
     }
 }

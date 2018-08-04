@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { NgRedux } from 'ng2-redux';
-
 import { MyState } from '../../store/store';
 
 @Component({

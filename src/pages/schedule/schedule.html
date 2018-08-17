@@ -1,12 +1,21 @@
 <ion-header>
-    <ion-navbar color='titleNavBar'>
-      <ion-title>
-        Schedule
-      </ion-title>
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content padding class="gradient">
-  
-  </ion-content>
-  
+  <ion-navbar color='titleNavBar'>
+    <ion-title>
+      Schedule
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="gradient">
+    <ion-slides (ionSlideDidChange)="slideChanged()">
+      <ion-slide>
+        <h1>Monday</h1>
+      </ion-slide>
+      <ion-slide>
+        <h1>Tuesday</h1>
+      </ion-slide>
+      <ion-slide>
+        <h1>Wednesday</h1>
+      </ion-slide>
+    </ion-slides>
+</ion-content>

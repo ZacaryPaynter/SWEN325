@@ -12,32 +12,39 @@
             Add New Budget Item
             <ion-icon name="add-circle" item-end color="yellow"></ion-icon>
           </button>
+      <ion-item color="secondary">
+          <ion-label>
+              Spending Money:
+            </ion-label>
+            <div item-content>
+              $ {{spending}}
+            </div>
+      </ion-item>
     </ion-card>
-<ion-card class="ion-card-border">
+<ion-card *ngIf="budget.length > 0" class="ion-card-border">
   <ion-card-header>
     Current Budget Items:
   </ion-card-header>
   <ion-list class="list-of-budgets">
-      <ion-item *ngFor="let item of budget" color="secondary">
-          <ion-label>
-              {{item.title}}
-            </ion-label>
-            <div item-content>
-                <ion-icon name="add" [hidden]="!item.income" color="income"></ion-icon>
-                <ion-icon name="remove" [hidden]="item.income" color="outcome"></ion-icon>
-                 {{item.amount}}
-            </div>
-      </ion-item>
+      <ion-item-sliding (overslide)="handleOverslide(item)" *ngFor="let bud of budget" #item overslide>
+          <ion-item color="secondary">
+              <ion-label>
+                  {{bud.title}}
+                </ion-label>
+                <div item-content>
+                    <ion-icon name="add" [hidden]="!bud.income" color="income"></ion-icon>
+                    <ion-icon name="remove" [hidden]="bud.income" color="outcome"></ion-icon>
+                     {{bud.amount}}
+                </div>
+          </ion-item>
+            <ion-item-options side="right">
+              <button ion-button (click)="removeCurrentBudget(bud)"  color="danger">
+                <ion-icon name="trash"></ion-icon>
+                Remove
+              </button>
+            </ion-item-options>
+      </ion-item-sliding>
   </ion-list>
 </ion-card>
-<ion-card class="ion-card-border">
-  <ion-item color="secondary">
-      <ion-label>
-          Remaining Spending Money:
-        </ion-label>
-        <div item-content>
-          $ {{spending}}
-        </div>
-  </ion-item>
-</ion-card>
+
 </ion-content>

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Budget  } from './budget';
 import { Http, Response } from '@angular/http';
 
@@ -8,6 +8,15 @@ export class BudgetService {
     private BudgetsUrl = 'http://agile-cove-43620.herokuapp.com/api/budget';
 
     constructor (private http: Http) {}
+
+
+    @Output() addBudget: EventEmitter<Budget> = new EventEmitter();
+
+    addNewBudget(budget: Budget)
+    {
+      this.addBudget.emit(budget);
+    }
+  
 
     // get("/api/budget")
     getBudgets(): Promise<void | Budget[]> {
@@ -19,7 +28,6 @@ export class BudgetService {
 
     // post("/api/budget")
     createBudget(newBudget: Budget): Promise<void | Budget> {
-      console.log(newBudget.title);
       return this.http.post(this.BudgetsUrl, newBudget)
                  .toPromise()
                  .then(response => response.json() as Budget)

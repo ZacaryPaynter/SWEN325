@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController} from 'ionic-angular';
+import { Component, OnInit} from '@angular/core';
+import { NavController, AlertController, Events} from 'ionic-angular';
 import { Budget } from './budget';
 import { BudgetService } from './budget.service';
 import { NgRedux } from 'ng2-redux';
@@ -16,14 +16,22 @@ user: string;
 budget : Budget[]
 budgetItem : Budget 
 spending : number
+totalAmount: number;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController,
+constructor(public navCtrl: NavController, public alertCtrl: AlertController, public events: Events,
     private budgetService: BudgetService, private ngRedux: NgRedux<MyState>) {
     this.user = this.ngRedux.getState().email;
+    events.subscribe('budget:created', (budget) => {
+      // user and time are the same arguments passed in `events.publish(user, time)`
+      console.log('Welcome', budget.title);
+      this.addBudget(budget);
+      this.spending = this.calculateSpending(this.budget);
+    });
   }
 
   ngOnInit()
   {
+    this.budget = [];
     this.budgetService
     .getBudgets()
     .then((budget: Budget[]) => {
@@ -34,40 +42,32 @@ spending : number
     });
   }
 
+  handleOverslide(item){
+    console.log("is this supposed to work: " + item);
+  }
 
   calculateSpending(budget: Budget[])
   {
-    var amount = 0;
-
+    this.totalAmount = 0;
     for (var i=0; i < budget.length; i++)
     {
+      var amount = Number(budget[i].amount);
       if (budget[i].income)
       {
-        amount += budget[i].amount;
+        this.totalAmount = this.totalAmount + amount;
       }
       else 
       {
-        amount -= budget[i].amount;
+        this.totalAmount = this.totalAmount - amount;
       }
-    
     }
-    return amount;
+    return this.totalAmount;
   }
 
   private getIndexOfBudget = (budgetId: String) => {
     return this.budget.findIndex((budget) => {
       return budget._id === budgetId;
     });
-  }
-
-  addNewBudget()
-  {
-      const alert = this.alertCtrl.create({
-        title: 'MAKE A BUDGET',
-        subTitle: this.user,
-        buttons: ['OK']
-      });
-      alert.present();
   }
 
   selectBudget(budget: Budget) {
@@ -78,29 +78,25 @@ spending : number
     this.navCtrl.push(BudgetDetail);
   }
 
-  // deleteBudget = (budgetId: String) => {
-  //   var idx = this.getIndexOfBudget(budgetId);
-  //   if (idx !== -1) {
-  //     this.budget.splice(idx, 1);
-  //     this.selectBudget(null);
-  //   }
-  //   return this.budget;
-  // }
+  removeCurrentBudget(budget: Budget) {
+    this.budgetService.deleteBudget(budget._id);
+    this.deleteBudget(budget._id);
+  }
 
-  // addBudget = (budget: Budget) => {
-  //   this.budget.push(budget);
-  //   this.selectBudget(budget);
-  //   return this.budget;
-  // }
+  deleteBudget = (budgetId: String) => {
+    var idx = this.getIndexOfBudget(budgetId);
+    if (idx !== -1) {
+      this.budget.splice(idx, 1);
+      this.selectBudget(null);
+      this.spending = this.calculateSpending(this.budget);
+    }
+    return this.budget;
+  }
 
-  // updateBudget = (budget: Budget) => {
-  //   var idx = this.getIndexOfBudget(budget._id);
-  //   if (idx !== -1) {
-  //     this.budget[idx] = budget;
-  //     this.selectBudget(budget);
-  //   }
-  //   return this.budget;
-  // }
-  
+  addBudget = (budget: Budget) => {
+    this.budget.push(budget);
+    this.selectBudget(budget);
+    return this.budget;
+  }
 
 }

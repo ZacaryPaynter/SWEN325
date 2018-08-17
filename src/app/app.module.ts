@@ -19,6 +19,8 @@ import { INITIAL_STATE } from '../store/store';
 import { SchedulePage } from '../pages/schedule/schedulepage';
 import { HttpModule } from '../../node_modules/@angular/http';
 
+import { OverslideDirective } from '../directives/overslide/overslide';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -26,6 +28,7 @@ import { HttpModule } from '../../node_modules/@angular/http';
     BudgetDetail,
     HomePage,
     LoginPage,
+    OverslideDirective,
     TabsPage,
     SchedulePage
   ],

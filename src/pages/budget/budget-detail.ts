@@ -1,8 +1,8 @@
-import { Component, Input} from '@angular/core';
+import { Component } from '@angular/core';
 import { Budget } from './budget';
 import { BudgetService } from './budget.service';
-import { NavController, AlertController} from 'ionic-angular';
-import { BudgetPage } from './budgetpage';
+import { NavController, AlertController, Events} from 'ionic-angular';
+
 
 @Component({
     selector: 'budget-details',
@@ -12,22 +12,18 @@ import { BudgetPage } from './budgetpage';
 
   export class BudgetDetail {
     budgetItem : Budget;
+
     title: string;
     amount: number;
     isIncome: number;
     income: boolean;
     budget: Budget[];
 
-    @Input()
-    createHandler: Function;
-    constructor(public navCtrl: NavController, 
+
+    constructor(public navCtrl: NavController, private event : Events,
       public alertCtrl: AlertController, private budgetService: BudgetService){}
 
     createNewBudgetItem(){
-      console.log("title: "+this.title);
-      console.log("amount: "+this.amount);
-      console.log("isIncome: "+this.isIncome);
-      
       if (this.isIncome==1){this.income=true}
       else {this.income=false}
 
@@ -50,24 +46,19 @@ import { BudgetPage } from './budgetpage';
       this.budgetItem = budget;
     }
 
-    // addBudget = (budget: Budget) => {
-    //   this.budget.push(budget);
-    //   this.selectBudget(budget);
-    //   return this.budget;
-    // }
-
     createBudget(budget: Budget) {
-      console.log(budget.title+" not sending an empty budget")
       this.budgetService.createBudget(budget).then((newBudget: Budget) => {
         const alert = this.alertCtrl.create({
-          title: 'Well Done',
-          subTitle: 'Successfully added the budget item',
-          message: this.title + " : " + this.amount,
+          title: 'Budget Item Added',
+          subTitle: 'Successfully a new Item',
+          message: newBudget.title + " : $" + newBudget.amount,
           buttons: [
             {
               text: 'OK',
               handler: () =>{
-                this.navCtrl.push(BudgetPage);
+                console.log("go back to budget page");
+                this.event.publish('budget:created', budget);
+                this.navCtrl.pop();
               }
             }
           ]

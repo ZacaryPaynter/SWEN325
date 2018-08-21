@@ -20,7 +20,7 @@ export class TabsPage {
 
 
   constructor(private navParams: NavParams) {
-    this.params = navParams.data;
+    this.params = this.navParams.data;
   }
 
 }

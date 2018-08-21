@@ -1,6 +1,6 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Schedule } from './schedule';
-import { Http, Response } from '@angular/http';
+import { Http } from '@angular/http';
 
 @Injectable()
 export class ScheduleService {

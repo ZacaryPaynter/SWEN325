@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController, Events, NavParams } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, AlertController} from 'ionic-angular';
 import { NgRedux } from 'ng2-redux';
 import { MyState } from '../../store/store';
 
@@ -12,8 +12,7 @@ export class HomePage {
   password : string;
   tasks : any
 
-  constructor(public navCtrl: NavController, private navParams: NavParams,
-    private ngRedux: NgRedux<MyState>, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, private ngRedux: NgRedux<MyState>, public alertCtrl: AlertController) {
     this.user = this.ngRedux.getState().email;
     //this.user = this.navParams.get('email');
     this.password = this.ngRedux.getState().password;

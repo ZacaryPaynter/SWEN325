@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Events } from 'ionic-angular';
+import { NavController} from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { NgRedux } from 'ng2-redux';
 import { MyState } from '../../store/store';
@@ -13,8 +13,7 @@ import { LOGIN } from '../../store/actions';
     email: string;
     password: string;
     
-    constructor(public navCtrl: NavController, private events: Events,
-      private ngRedux: NgRedux<MyState>) {
+    constructor(public navCtrl: NavController, private ngRedux: NgRedux<MyState>) {
   
     }
 

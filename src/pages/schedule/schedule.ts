@@ -1,5 +1,3 @@
-import { SchedTime } from "./SchedTime";
-
 import { Component} from '@angular/core';
 
 @Component({

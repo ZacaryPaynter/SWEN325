@@ -1,5 +1,5 @@
-import { Component, OnInit} from '@angular/core';
-import { NavController, AlertController, Events} from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { NavController, AlertController, Events } from 'ionic-angular';
 import { Budget } from './budget';
 import { BudgetService } from './budget.service';
 import { NgRedux } from 'ng2-redux';
@@ -8,54 +8,54 @@ import { BudgetDetail } from './budget-detail';
 
 @Component({
   selector: 'page-budget',
-  templateUrl: 'budgetpage.html', 
+  templateUrl: 'budgetpage.html',
   providers: [BudgetService]
 })
-export class BudgetPage implements OnInit{
-user: string;
-budget : Budget[]
-budgetItem : Budget 
-spending : number
-totalAmount : number
+export class BudgetPage implements OnInit {
+  user: string;
+  budget: Budget[]
+  budgetItem: Budget
+  spending: number
+  totalAmount: number
 
-constructor(public navCtrl: NavController, public alertCtrl: AlertController, public events: Events,
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public events: Events,
     private budgetService: BudgetService, private ngRedux: NgRedux<MyState>) {
     this.user = this.ngRedux.getState().email;
     events.subscribe('budget:created', (budget) => {
       this.addBudget(budget);
       this.spending = this.calculateSpending(this.budget);
     });
-  }
-
-
-  ngOnInit()
-  {
-    this.budget = [];
-    this.budgetService
-    .getBudgets()
-    .then((budget: Budget[]) => {
-      this.budget = budget.map((budget) => {
-        return budget;
-      });
+    events.subscribe('budget:edited', (budget) => {
+      //deal with updating budget in array
+      this.updateBudget(budget);
       this.spending = this.calculateSpending(this.budget);
     });
   }
 
-  handleOverslide(item){
+
+  ngOnInit() {
+    this.budget = [];
+    this.budgetService
+      .getBudgets()
+      .then((budget: Budget[]) => {
+        this.budget = budget.map((budget) => {
+          return budget;
+        });
+        this.spending = this.calculateSpending(this.budget);
+      });
   }
 
-  calculateSpending(budget: Budget[])
-  {
+  handleOverslide(item) {
+  }
+
+  calculateSpending(budget: Budget[]) {
     this.totalAmount = 0;
-    for (var i=0; i < budget.length; i++)
-    {
+    for (var i = 0; i < budget.length; i++) {
       var amount = Number(budget[i].amount);
-      if (budget[i].income)
-      {
+      if (budget[i].income) {
         this.totalAmount = this.totalAmount + amount;
       }
-      else 
-      {
+      else {
         this.totalAmount = this.totalAmount - amount;
       }
     }
@@ -76,9 +76,38 @@ constructor(public navCtrl: NavController, public alertCtrl: AlertController, pu
     this.navCtrl.push(BudgetDetail);
   }
 
+  editCurrentBudget(budget: Budget) {
+    this.navCtrl.push(BudgetDetail, {currBudget: budget});
+  }
+
   removeCurrentBudget(budget: Budget) {
-    this.budgetService.deleteBudget(budget._id);
-    this.deleteBudget(budget._id);
+    const alert = this.alertCtrl.create({
+      title: 'Are you sure? ',
+      subTitle: 'Are you sure you want to remove the following budget item:',
+      message: budget.title + " : $" + budget.amount,
+      buttons: [
+        {
+          text: 'CANCEL',
+          handler: () => {
+            return;
+          }
+        },
+        {
+          text: 'OK',
+          handler: () => {
+            this.budgetService.deleteBudget(budget._id);
+            this.deleteBudget(budget._id);
+          }
+        },
+      ]
+    });
+    alert.present();
+  }
+
+  private getIndexOfContact = (budgetId: String) => {
+    return this.budget.findIndex((budget) => {
+      return budget._id === budgetId;
+    });
   }
 
   deleteBudget = (budgetId: String) => {
@@ -94,6 +123,15 @@ constructor(public navCtrl: NavController, public alertCtrl: AlertController, pu
   addBudget = (budget: Budget) => {
     this.budget.push(budget);
     this.selectBudget(budget);
+    return this.budget;
+  }
+
+  updateBudget = (budget: Budget) => {
+    var idx = this.getIndexOfContact(budget._id);
+    if (idx !== -1) {
+      this.budget[idx] = budget;
+      this.selectBudget(budget);
+    }
     return this.budget;
   }
 

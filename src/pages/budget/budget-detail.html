@@ -1,35 +1,64 @@
 <ion-header>
     <ion-navbar color='titleNavBar'>
-        <ion-title>
+        <ion-title *ngIf="budgetItem!=null">
+            Edit Budget Item : {{budgetItem.title}}
+        </ion-title>
+        <ion-title *ngIf="budgetItem==null">
             Enter Budget Details
         </ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content class="gradient" padding>
-        <ion-card class="ion-card-border">
-          <form (submit)="createNewBudgetItem()">
-            <ion-item color="secondary"> 
-              <ion-label>Title</ion-label>
-              <ion-input type="text" [(ngModel)]="title" name="title"></ion-input> 
+    <!-- Form for creating a new budget item -->
+    <ion-card *ngIf="budgetItem==null" class="ion-card-border">
+        <form (submit)="createNewBudgetItem()">
+            <ion-item color="secondary">
+                <ion-label>Title</ion-label>
+                <ion-input type="text" [(ngModel)]="title" name="title"></ion-input>
             </ion-item>
             <ion-item color="secondary">
                 <ion-label>Amount</ion-label>
-                <ion-input type="number" [(ngModel)]="amount" name="amount"></ion-input> 
+                <ion-input type="number" [(ngModel)]="amount" name="amount"></ion-input>
             </ion-item>
             <ion-list radio-group [(ngModel)]="isIncome" name="isIncome">
-                    <ion-item color="secondary">
-                            <ion-label>Income</ion-label>
-                            <ion-radio value=1 ></ion-radio>
-                    </ion-item>
-                    <ion-item color="secondary">
-                            <ion-label>Outcome</ion-label>
-                            <ion-radio value=0 ></ion-radio>
-                    </ion-item>
+                <ion-item color="secondary">
+                    <ion-label>Income</ion-label>
+                    <ion-radio value=1></ion-radio>
+                </ion-item>
+                <ion-item color="secondary">
+                    <ion-label>Outcome</ion-label>
+                    <ion-radio value=0></ion-radio>
+                </ion-item>
             </ion-list>
             <p class="errMsg" *ngIf="formInvalid"> Form is invalid: {{errMsg}}</p>
             <button ion-button type="submit" block>Add Budget Item</button>
-            </form>
-          </ion-card>
+        </form>
+    </ion-card>
 
-    </ion-content>
+    <!-- Form for editing the current budget item-->
+    <ion-card *ngIf="budgetItem!=null" class="ion-card-border">
+        <form (submit)="editCurrentBudgetItem(budgetItem)">
+            <ion-item color="secondary">
+                <ion-label>Title</ion-label>
+                <ion-input type="text" [(ngModel)]="title" name="title" [placeholder]="budgetItem.title"></ion-input>
+            </ion-item>
+            <ion-item color="secondary">
+                <ion-label>Amount</ion-label>
+                <ion-input type="number" [(ngModel)]="amount" name="amount" [placeholder]="budgetItem.amount"></ion-input>
+            </ion-item>
+            <ion-list radio-group [(ngModel)]="isIncome" name="isIncome">
+                <ion-item color="secondary">
+                    <ion-label>Income</ion-label>
+                    <ion-radio value=1></ion-radio>
+                </ion-item>
+                <ion-item color="secondary">
+                    <ion-label>Outcome</ion-label>
+                    <ion-radio value=0 ng-checked="!budgetItem.income"></ion-radio>
+                </ion-item>
+            </ion-list>
+            <p class="errMsg" *ngIf="formInvalid"> Form is invalid: {{errMsg}}</p>
+            <button ion-button type="submit" block>Add Budget Item</button>
+        </form>
+    </ion-card>
+</ion-content>

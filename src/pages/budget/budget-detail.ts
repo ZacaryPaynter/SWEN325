@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Budget } from './budget';
 import { BudgetService } from './budget.service';
-import { NavController, AlertController, Events } from 'ionic-angular';
+import { NavController, AlertController, Events, NavParams } from 'ionic-angular';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 
 
@@ -25,32 +25,54 @@ export class BudgetDetail {
 
 
   constructor(public navCtrl: NavController, private event: Events, private spinnerDialog: SpinnerDialog,
-    public alertCtrl: AlertController, private budgetService: BudgetService) {
-    this.spinnerDialog.show();
+    public alertCtrl: AlertController, private budgetService: BudgetService, private navParams: NavParams ) {
+      this.budgetItem = this.navParams.get('currBudget');
+      this.spinnerDialog.show();
   }
 
-  createNewBudgetItem() {
+  formValidator = () => {
     if (this.isIncome == 1) { this.income = true }
     else { this.income = false }
+
     if (this.title == null) {
-      //this.errorPopup('title');
       this.errMsg = "Please enter a title"
       this.formInvalid = true;
-      return;
+      return false;
     } else if (this.amount == null) {
-      //this.errorPopup('amount');
       this.errMsg = "Please enter a numerical amount"
       this.formInvalid = true;
-      return;
+      return false;
     }
     else if (this.isIncome == null) {
-      //this.errorPopup('income');
       this.errMsg = "Please select income or outcome"
       this.formInvalid = true;
-      return;
-    } else { this.formInvalid = false; }
-    this.createNewBudget();
-    this.createBudget(this.budgetItem);
+      return false;
+    } else { 
+      this.formInvalid = false;
+      return true;
+     }
+  }
+
+  editCurrentBudgetItem(budgetItem : Budget)
+  {
+    if (this.formValidator())
+    {
+      //edit the current budget item
+      budgetItem.title = this.title;
+      budgetItem.amount = this.amount;
+      budgetItem.income = this.income;
+      // send this to the service, figure and publish 
+      this.updateBudget(budgetItem);
+    } else {return;}
+  }
+
+  createNewBudgetItem() 
+  {
+    if (this.formValidator())
+    {
+      this.createNewBudget();
+      this.createBudget(this.budgetItem);
+    } else {return;}
   }
 
   createNewBudget() {
@@ -68,26 +90,10 @@ export class BudgetDetail {
     this.budgetItem = budget;
   }
 
-  errorPopup(type: string) {
-    const alert = this.alertCtrl.create({
-      title: 'Invalid Form',
-      subTitle: 'You need to enter all details',
-      message: "Please enter : " + type,
-      buttons: [
-        {
-          text: 'OK',
-          handler: () => {
-
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
 
   createBudget(budget: Budget) {
+    console.log("making new budget: "+budget.title+" "+budget.amount+" "+budget.income+" "+budget._id);
     this.budgetService.createBudget(budget).then((newBudget: Budget) => {
-      this.spinnerDialog.hide();
       const alert = this.alertCtrl.create({
         title: 'Budget Item Added',
         subTitle: 'Successfully a new Item',
@@ -96,8 +102,27 @@ export class BudgetDetail {
           {
             text: 'OK',
             handler: () => {
-              console.log("go back to budget page");
               this.event.publish('budget:created', budget);
+              this.navCtrl.pop();
+            }
+          }
+        ]
+      });
+      alert.present();
+    });
+  }
+
+  updateBudget(budget: Budget) {
+    this.budgetService.updateBudget(budget).then((newBudget: Budget) => {
+      const alert = this.alertCtrl.create({
+        title: 'Budget Item Edited',
+        subTitle: 'Successfully edited Item',
+        message: newBudget.title + " : $" + newBudget.amount,
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {
+              this.event.publish('budget:edited', budget);
               this.navCtrl.pop();
             }
           }

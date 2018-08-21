@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar color='titleNavBar'>
+    <ion-title>
+      {{user}}'s Schedule
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="gradient">
+    <ion-slides>
+        <ion-slide *ngFor="let s of schedules">
+            <ion-card class="ion-card-border">
+                <h1>{{s.day}}</h1>
+                <ion-list class="accordion-list">
+                    <!-- First Level -->
+                    <ion-list-header *ngFor="let sched of s.sched_times; let i = index" no-lines no-padding>
+                        <!-- Toggle Button -->
+                        <button ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': sched.open, 'section': !sched.open}">
+                            {{ sched.timeid }} : {{sched.title }}
+                            <ion-icon item-left name="arrow-forward" *ngIf="!sched.open"></ion-icon>
+                            <ion-icon item-left name="arrow-down" *ngIf="sched.open"></ion-icon>
+                        </button>
+            
+                            <ion-item *ngIf="sched.open">
+                                <h2>{{ sched.title  }}</h2>
+                                <p text-lowercase>{{ sched.description }}</p>
+                                <!-- Direct Add Button -->
+                                <button ion-button outline item-end >Edit</button>
+                              </ion-item>
+                    </ion-list-header>
+                </ion-list>
+            
+            </ion-card>
+        </ion-slide>
+      </ion-slides>
+</ion-content>

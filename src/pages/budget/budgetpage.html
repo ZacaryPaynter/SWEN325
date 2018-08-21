@@ -6,7 +6,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="gradient"> 
+<ion-content padding class="gradient" > 
     <ion-card class="ion-card-border">
         <button ion-item detail-none (click)="createNewBudget()" color="secondary"> 
             Add New Budget Item
@@ -16,11 +16,18 @@
           <ion-label>
               Spending Money:
             </ion-label>
-            <div item-content>
-              $ {{spending}}
+            <div *ngIf="budget.length <= 0" item-content>
+              $ 0
             </div>
+            <div *ngIf="budget.length > 0" item-content>
+                $ {{spending}}
+              </div>
       </ion-item>
     </ion-card>
+<ion-card *ngIf="budget.length <= 0" class="ion-card-border">
+      <ion-spinner></ion-spinner>
+</ion-card>
+
 <ion-card *ngIf="budget.length > 0" class="ion-card-border">
   <ion-card-header>
     Current Budget Items:

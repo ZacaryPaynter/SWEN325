@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { BudgetPage } from '../budget/budgetpage';
 import { HomePage } from '../home/home';
 import { SchedulePage } from '../schedule/schedulepage';
+import { NavParams } from 'ionic-angular';
 
 
 @Component({
@@ -15,9 +16,11 @@ export class TabsPage {
   tab1Root = HomePage;
   tab2Root = SchedulePage;
   tab3Root = BudgetPage;
+  params;
 
-  constructor() {
 
+  constructor(private navParams: NavParams) {
+    this.params = navParams.data;
   }
 
 }

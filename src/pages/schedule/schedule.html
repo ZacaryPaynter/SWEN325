@@ -1,21 +1,22 @@
-<ion-header>
-  <ion-navbar color='titleNavBar'>
-    <ion-title>
-      Schedule
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-card class="ion-card-border">
+    <h1>{{day}}</h1>
+    <ion-list class="accordion-list">
+        <!-- First Level -->
+        <ion-list-header *ngFor="let sched of sched_times; let i = index" no-lines no-padding>
+            <!-- Toggle Button -->
+            <button ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': sched.open, 'section': !sched.open}">
+                {{ sched.timeid }} : {{sched.title }}
+                <ion-icon item-left name="arrow-forward" *ngIf="!sched.open"></ion-icon>
+                <ion-icon item-left name="arrow-down" *ngIf="sched.open"></ion-icon>
+            </button>
 
-<ion-content padding class="gradient">
-    <ion-slides (ionSlideDidChange)="slideChanged()">
-      <ion-slide>
-        <h1>Monday</h1>
-      </ion-slide>
-      <ion-slide>
-        <h1>Tuesday</h1>
-      </ion-slide>
-      <ion-slide>
-        <h1>Wednesday</h1>
-      </ion-slide>
-    </ion-slides>
-</ion-content>
+                <ion-item *ngIf="sched.open">
+                    <h2>{{ sched.title  }}</h2>
+                    <p text-lowercase>{{ sched.description }}</p>
+                    <!-- Direct Add Button -->
+                    <button ion-button outline item-end >Edit</button>
+                  </ion-item>
+        </ion-list-header>
+    </ion-list>
+
+</ion-card>

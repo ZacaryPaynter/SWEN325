@@ -27,7 +27,9 @@
                             <ion-radio value=0 ></ion-radio>
                     </ion-item>
             </ion-list>
+            <p class="errMsg" *ngIf="formInvalid"> Form is invalid: {{errMsg}}</p>
             <button ion-button type="submit" block>Add Budget Item</button>
             </form>
           </ion-card>
+
     </ion-content>

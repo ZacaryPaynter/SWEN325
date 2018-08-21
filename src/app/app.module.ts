@@ -8,6 +8,8 @@ import { BudgetDetail } from '../pages/budget/budget-detail';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
+import { SchedulePage } from '../pages/schedule/schedulepage';
+import { Schedule } from '../pages/schedule/schedule';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -16,10 +18,11 @@ import { NgRedux, NgReduxModule } from 'ng2-redux';
 import { MyState, rootReducer } from '../store/store';
 
 import { INITIAL_STATE } from '../store/store';
-import { SchedulePage } from '../pages/schedule/schedulepage';
-import { HttpModule } from '../../node_modules/@angular/http';
+
+import { HttpModule } from '@angular/http';
 
 import { OverslideDirective } from '../directives/overslide/overslide';
+import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ import { OverslideDirective } from '../directives/overslide/overslide';
     LoginPage,
     OverslideDirective,
     TabsPage,
-    SchedulePage
+    SchedulePage, 
+    Schedule
   ],
   imports: [
     BrowserModule,
@@ -46,11 +50,13 @@ import { OverslideDirective } from '../directives/overslide/overslide';
     HomePage,
     LoginPage,
     TabsPage,
-    SchedulePage
+    SchedulePage, 
+    Schedule
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    SpinnerDialog,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

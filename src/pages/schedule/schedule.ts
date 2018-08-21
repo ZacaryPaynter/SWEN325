@@ -16,7 +16,8 @@ export class Schedule {
       
     }
 
-    private toggleSection(i) {
+    public toggleSection(i) {
+      console.log("calling togglesection"+i);
       this.sched_times[i].open = !this.sched_times[i].open;
     }
 

@@ -15,7 +15,7 @@
                     <!-- First Level -->
                     <ion-list-header *ngFor="let sched of s.sched_times; let i = index" no-lines no-padding>
                         <!-- Toggle Button -->
-                        <button ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': sched.open, 'section': !sched.open}">
+                        <button ion-item (click)="toggleSection(i, s)" detail-none [ngClass]="{'section-active': sched.open, 'section': !sched.open}">
                             {{ sched.timeid }} : {{sched.title }}
                             <ion-icon item-left name="arrow-forward" *ngIf="!sched.open"></ion-icon>
                             <ion-icon item-left name="arrow-down" *ngIf="sched.open"></ion-icon>

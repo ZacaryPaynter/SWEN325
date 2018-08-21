@@ -16,6 +16,7 @@ export class SchedulePage implements AfterViewInit{
   @ViewChild(Slides) slides: Slides;
   user: string;
   schedules: Schedule[];
+  currentSchedule: Schedule;
 
   constructor(public navCtrl: NavController, private ngRedux: NgRedux<MyState>,
     private scheduleService: ScheduleService) {
@@ -35,6 +36,12 @@ export class SchedulePage implements AfterViewInit{
   ngAfterViewInit() {
     this.slides.freeMode = true;
   }
+
+  public toggleSection(i: number, schedule: Schedule) {
+    this.currentSchedule = schedule;
+    console.log("togglesection"+i);
+    this.currentSchedule.sched_times[i].open = !this.currentSchedule.sched_times[i].open;
+  } 
 
   slideChanged() {
     let currentIndex = this.slides.getActiveIndex();

@@ -1,0 +1,32 @@
+.list-of-schedules {
+    max-height: 375px;
+    overflow-y: scroll;
+    background-color: #E2E2E2;
+}
+
+.format-card{
+    // max-height: 75%;
+    background-color: #E2E2E2;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+// .format-slide{
+//     max-height: 300px;
+//     overflow-y: scroll;
+// }
+
+h1 {
+    color: #6E7E85;
+}
+
+p{
+    margin: auto;
+}
+
+.fab-button-small{
+    // margin: 2px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+}

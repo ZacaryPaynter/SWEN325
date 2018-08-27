@@ -23,10 +23,17 @@ export class BudgetDetail {
   errMsg: string;
   formInvalid = false;
 
+  isLoading: boolean = false;
+  isEdit: boolean = false;
+
 
   constructor(public navCtrl: NavController, private event: Events, private spinnerDialog: SpinnerDialog,
     public alertCtrl: AlertController, private budgetService: BudgetService, private navParams: NavParams ) {
-      this.budgetItem = this.navParams.get('currBudget');
+      if (this.navParams.get('currBudget')!=null){
+        console.log("edit instead of new");
+        this.budgetItem = this.navParams.get('currBudget');
+        this.isEdit = true;
+      }
       this.spinnerDialog.show();
   }
 
@@ -49,6 +56,7 @@ export class BudgetDetail {
       return false;
     } else { 
       this.formInvalid = false;
+      this.isLoading=true;
       return true;
      }
   }
@@ -94,6 +102,7 @@ export class BudgetDetail {
   createBudget(budget: Budget) {
     console.log("making new budget: "+budget.title+" "+budget.amount+" "+budget.income+" "+budget._id);
     this.budgetService.createBudget(budget).then((newBudget: Budget) => {
+      this.isLoading = false;
       const alert = this.alertCtrl.create({
         title: 'Budget Item Added',
         subTitle: 'Successfully a new Item',
@@ -102,6 +111,7 @@ export class BudgetDetail {
           {
             text: 'OK',
             handler: () => {
+              console.log("pressed OK");
               this.event.publish('budget:created', budget);
               this.navCtrl.pop();
             }
@@ -114,6 +124,8 @@ export class BudgetDetail {
 
   updateBudget(budget: Budget) {
     this.budgetService.updateBudget(budget).then((newBudget: Budget) => {
+      this.isEdit = false;
+      this.isLoading = false;
       const alert = this.alertCtrl.create({
         title: 'Budget Item Edited',
         subTitle: 'Successfully edited Item',

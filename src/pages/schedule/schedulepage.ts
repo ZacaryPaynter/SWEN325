@@ -3,8 +3,8 @@ import { NavController, Slides} from 'ionic-angular';
 import { NgRedux } from '../../../node_modules/ng2-redux';
 import { MyState } from '../../store/store';
 import { Schedule } from '../schedule/schedule';
-//import { SchedTime } from '../schedule/SchedTime';
 import { ScheduleService } from './schedule.service';
+import { SchedTime } from './schedtime';
 
 @Component({
   selector: 'page-schedule',
@@ -26,8 +26,6 @@ export class SchedulePage implements AfterViewInit{
     .getSchedules()
     .then((schedule: Schedule[]) => {
       this.schedules = schedule.map((schedule) => {
-        console.log("current day: " + schedule.day);
-        console.log("there are time entries: " + schedule.sched_times.length);
         return schedule;
       });
     });
@@ -37,9 +35,12 @@ export class SchedulePage implements AfterViewInit{
     this.slides.freeMode = true;
   }
 
+  editCurrentSchedule(sched: SchedTime){
+    console.log("editing: "+sched.timeid+" on day: "+this.currentSchedule.day);
+  }
+
   public toggleSection(i: number, schedule: Schedule) {
     this.currentSchedule = schedule;
-    console.log("togglesection"+i);
     this.currentSchedule.sched_times[i].open = !this.currentSchedule.sched_times[i].open;
   } 
 

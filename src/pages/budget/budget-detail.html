@@ -1,17 +1,18 @@
 <ion-header>
     <ion-navbar color='titleNavBar'>
-        <ion-title *ngIf="budgetItem!=null">
+        <ion-title *ngIf="budgetItem!=null && !isLoading">
             Edit Budget Item : {{budgetItem.title}}
         </ion-title>
-        <ion-title *ngIf="budgetItem==null">
+        <ion-title *ngIf="budgetItem==null && !isLoading">
             Enter Budget Details
         </ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content class="gradient" padding>
+    <ion-spinner *ngIf="isLoading"></ion-spinner>
     <!-- Form for creating a new budget item -->
-    <ion-card *ngIf="budgetItem==null" class="ion-card-border">
+    <ion-card *ngIf="budgetItem==null && !isLoading" class="ion-card-border">
         <form (submit)="createNewBudgetItem()">
             <ion-item color="secondary">
                 <ion-label>Title</ion-label>
@@ -37,7 +38,7 @@
     </ion-card>
 
     <!-- Form for editing the current budget item-->
-    <ion-card *ngIf="budgetItem!=null" class="ion-card-border">
+    <ion-card *ngIf="budgetItem!=null && isEdit && !isLoading" class="ion-card-border">
         <form (submit)="editCurrentBudgetItem(budgetItem)">
             <ion-item color="secondary">
                 <ion-label>Title</ion-label>
@@ -58,7 +59,7 @@
                 </ion-item>
             </ion-list>
             <p class="errMsg" *ngIf="formInvalid"> Form is invalid: {{errMsg}}</p>
-            <button ion-button type="submit" block>Add Budget Item</button>
+            <button ion-button type="submit" block>Edit Budget Item</button>
         </form>
     </ion-card>
 </ion-content>

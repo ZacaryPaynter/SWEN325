@@ -1,36 +1,61 @@
 <ion-header>
-  <ion-navbar color='titleNavBar'>
-    <ion-title>
-      {{user}}'s Schedule
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar color='titleNavBar'>
+        <ion-title>
+            {{user}}'s Schedule
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content class="gradient">
-    <ion-slides>
-        <ion-slide *ngFor="let s of schedules">
-            <ion-card class="ion-card-border">
-                <h1>{{s.day}}</h1>
-                <ion-list class="accordion-list">
-                    <!-- First Level -->
-                    <ion-list-header *ngFor="let sched of s.sched_times; let i = index" no-lines no-padding>
-                        <!-- Toggle Button -->
-                        <button ion-item (click)="toggleSection(i, s)" detail-none [ngClass]="{'section-active': sched.open, 'section': !sched.open}">
-                            {{ sched.timeid }} : {{sched.title }}
-                            <ion-icon item-left name="arrow-forward" *ngIf="!sched.open"></ion-icon>
-                            <ion-icon item-left name="arrow-down" *ngIf="sched.open"></ion-icon>
-                        </button>
-            
-                            <ion-item *ngIf="sched.open">
-                                <h2>{{ sched.title  }}</h2>
-                                <p text-lowercase>{{ sched.description }}</p>
-                                <!-- Direct Add Button -->
-                                <button ion-button outline item-end >Edit</button>
-                              </ion-item>
-                    </ion-list-header>
-                </ion-list>
-            
+    <ion-slides >
+        <ion-slide class="format-slide" *ngFor="let s of schedules">
+            <ion-card class="format-card">
+                    <h1 text-uppercase>{{s.day}}</h1>
+            <ion-list class="list-of-schedules">
+                <!-- First Level -->
+                <ion-item *ngFor="let sched of s.sched_times; let i = index"  no-lines color="secondary">
+                    <!-- Toggle Button -->
+                    <button ion-item (click)="toggleSection(i, s)" detail-none color="secondary">
+                        <h2 *ngIf="i < 4">{{ sched.timeid }}:00 AM </h2>
+                        <h2 *ngIf="i >= 4">{{ sched.timeid }}:00 PM</h2>
+                        <h2 text-capitalize>{{sched.title}}</h2>
+                        <!-- <h2 text-capitalize>{{ sched.title }}</h2> -->
+                        <ion-icon item-right name="arrow-forward" *ngIf="!sched.open" color="danger"></ion-icon>
+                        <ion-icon item-right name="arrow-down" *ngIf="sched.open" color="danger"></ion-icon>
+                    </button>
+                    <ion-item *ngIf="sched.open" color="secondary">
+                        <h2 text-uppercase>{{ sched.title }}</h2>
+                        <button *ngIf="sched.title==''" ion-button item-end color="yellow" (click)="editCurrentSchedule(sched)">Add Event</button>
+                        <button *ngIf="sched.title!=''" ion-button item-end color="yellow" (click)="editCurrentSchedule(sched)">Edit</button>
+                        <p text-lowercase>{{ sched.description }}</p>
+                        <!-- Direct Add Button -->
+                        <!-- <button ion-button item-end color="primary">Delete</button> -->
+                        <ion-avatar *ngIf="sched.category!=''" item-start>
+                                <img *ngIf="sched.category=='work'"src="../../assets/imgs/work.png">
+                                <img *ngIf="sched.category=='school'" src="../../assets/imgs/school.png">
+                                <img *ngIf="sched.category=='home'" src="../../assets/imgs/home.png">
+                                <img *ngIf="sched.category=='misc'" src="../../assets/imgs/misc.png">
+                                <!-- <img src="../../assets/imgs/"{sched.category}}.png"> -->
+                                <p text-uppercase>{{sched.category}}</p>
+                        </ion-avatar>
+                    </ion-item>
+                </ion-item>
+            </ion-list>
+
             </ion-card>
         </ion-slide>
-      </ion-slides>
+    </ion-slides>
+    <ion-fab right bottom>
+        <button ion-fab mini color="yellow"><ion-icon name="arrow-dropleft"></ion-icon></button>
+            <ion-fab-list side="left">
+              <!-- <button ion-fab class="fab-button-small" color="yellow"><ion-icon name="trash"></ion-icon> </button> -->
+              <button ion-fab class="fab-button-small" color="yellow">S</button>
+             <button ion-fab class="fab-button-small" color="yellow">S</button>
+             <button ion-fab class="fab-button-small" color="yellow">F</button>
+              <button ion-fab class="fab-button-small" color="yellow">T</button>
+              <button ion-fab class="fab-button-small" color="yellow">W</button>
+              <button ion-fab class="fab-button-small" color="yellow">T</button>
+              <button ion-fab class="fab-button-small" color="yellow">M</button>
+            </ion-fab-list>
+          </ion-fab>
 </ion-content>

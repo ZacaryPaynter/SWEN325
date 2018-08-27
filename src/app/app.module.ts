@@ -23,6 +23,7 @@ import { HttpModule } from '@angular/http';
 
 import { OverslideDirective } from '../directives/overslide/overslide';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
+import { ScheduleDetail } from '../pages/schedule/schedule-detail';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { SpinnerDialog } from '@ionic-native/spinner-dialog';
     OverslideDirective,
     TabsPage,
     SchedulePage, 
-    Schedule
+    Schedule,
+    ScheduleDetail
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,8 @@ import { SpinnerDialog } from '@ionic-native/spinner-dialog';
     LoginPage,
     TabsPage,
     SchedulePage, 
-    Schedule
+    Schedule,
+    ScheduleDetail
   ],
   providers: [
     StatusBar,

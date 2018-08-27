@@ -1,0 +1,81 @@
+<ion-header>
+        <ion-navbar color='titleNavBar'>
+            <ion-title text-uppercase *ngIf="schedTime.title!='' && !isLoading">
+                {{schedTime.title}} 
+            </ion-title>
+            <ion-title *ngIf="schedTime.title=='' && !isLoading">
+                Enter Event Details
+            </ion-title>
+        </ion-navbar>
+    </ion-header>
+    
+    <ion-content class="gradient" padding>
+        <!-- <ion-spinner *ngIf="isLoading"></ion-spinner> -->
+        <!-- Form for creating a new event -->
+        <ion-card *ngIf="schedTime.title=='' && !isLoading" class="ion-card-border">
+            <form (submit)="createNewScheduleItem()">
+                <ion-item color="secondary">
+                    <ion-label>Title</ion-label>
+                    <ion-input type="text" [(ngModel)]="title" name="title"></ion-input>
+                </ion-item>
+                <ion-item color="secondary">
+                    <ion-label>Description</ion-label>
+                    <ion-input type="text" [(ngModel)]="description" name="description"></ion-input>
+                </ion-item>
+                <ion-list radio-group [(ngModel)]="category" name="category">
+                    <ion-item color="secondary">
+                        <ion-label>Home</ion-label>
+                        <ion-radio value=0></ion-radio>
+                    </ion-item>
+                    <ion-item color="secondary">
+                        <ion-label>Work</ion-label>
+                        <ion-radio value=1></ion-radio>
+                    </ion-item>
+                    <ion-item color="secondary">
+                            <ion-label>School</ion-label>
+                            <ion-radio value=2></ion-radio>
+                        </ion-item>
+                        <ion-item color="secondary">
+                                <ion-label>Misc</ion-label>
+                                <ion-radio value=3></ion-radio>
+                            </ion-item>
+                </ion-list>
+                <p class="errMsg" *ngIf="formInvalid"> Form is invalid: {{errMsg}}</p>
+                <button ion-button type="submit" block>Add Event</button>
+            </form>
+        </ion-card>
+    
+        <!-- Form for editing the current budget item-->
+        <ion-card *ngIf="schedTime.title!='' && !isLoading" class="ion-card-border">
+            <form (submit)="editCurrentBudgetItem(budgetItem)">
+                <ion-item color="secondary">
+                    <ion-label>Title</ion-label>
+                    <ion-input type="text" [(ngModel)]="title" name="title" [placeholder]="schedTime.title"></ion-input>
+                </ion-item>
+                <ion-item color="secondary">
+                    <ion-label>Description</ion-label>
+                    <ion-input type="number" [(ngModel)]="description" name="description" [placeholder]="schedTime.description"></ion-input>
+                </ion-item>
+                <ion-list radio-group [(ngModel)]="category" name="category">
+                        <ion-item color="secondary">
+                            <ion-label>Home</ion-label>
+                            <ion-radio value=0></ion-radio>
+                        </ion-item>
+                        <ion-item color="secondary">
+                            <ion-label>Work</ion-label>
+                            <ion-radio value=1></ion-radio>
+                        </ion-item>
+                        <ion-item color="secondary">
+                                <ion-label>School</ion-label>
+                                <ion-radio value=2></ion-radio>
+                            </ion-item>
+                            <ion-item color="secondary">
+                                    <ion-label>Misc</ion-label>
+                                    <ion-radio value=3></ion-radio>
+                                </ion-item>
+                    </ion-list>
+                <p class="errMsg" *ngIf="formInvalid"> Form is invalid: {{errMsg}}</p>
+                <button ion-button type="submit" block>Edit Event Item</button>
+            </form>
+         </ion-card> 
+    </ion-content>

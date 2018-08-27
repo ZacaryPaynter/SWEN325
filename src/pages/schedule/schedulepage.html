@@ -49,13 +49,13 @@
         <button ion-fab mini color="yellow"><ion-icon name="arrow-dropleft"></ion-icon></button>
             <ion-fab-list side="left">
               <!-- <button ion-fab class="fab-button-small" color="yellow"><ion-icon name="trash"></ion-icon> </button> -->
-              <button ion-fab class="fab-button-small" color="yellow">S</button>
-             <button ion-fab class="fab-button-small" color="yellow">S</button>
-             <button ion-fab class="fab-button-small" color="yellow">F</button>
-              <button ion-fab class="fab-button-small" color="yellow">T</button>
-              <button ion-fab class="fab-button-small" color="yellow">W</button>
-              <button ion-fab class="fab-button-small" color="yellow">T</button>
-              <button ion-fab class="fab-button-small" color="yellow">M</button>
+              <button (click)="slideTo(6)" ion-fab class="fab-button-small" color="yellow">S</button>
+             <button (click)="slideTo(5)" ion-fab class="fab-button-small" color="yellow">S</button>
+             <button (click)="slideTo(4)" ion-fab class="fab-button-small" color="yellow">F</button>
+              <button (click)="slideTo(3)" ion-fab class="fab-button-small" color="yellow">T</button>
+              <button (click)="slideTo(2)" ion-fab class="fab-button-small" color="yellow">W</button>
+              <button (click)="slideTo(1)" ion-fab class="fab-button-small" color="yellow">T</button>
+              <button (click)="slideTo(0)" ion-fab class="fab-button-small" color="yellow">M</button>
             </ion-fab-list>
           </ion-fab>
 </ion-content>

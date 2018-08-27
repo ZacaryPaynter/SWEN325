@@ -5,6 +5,7 @@ import { MyState } from '../../store/store';
 import { Schedule } from '../schedule/schedule';
 import { ScheduleService } from './schedule.service';
 import { SchedTime } from './schedtime';
+import {ScheduleDetail} from './schedule-detail';
 
 @Component({
   selector: 'page-schedule',
@@ -32,11 +33,12 @@ export class SchedulePage implements AfterViewInit{
   }
 
   ngAfterViewInit() {
-    this.slides.freeMode = true;
+    //this.slides.freeMode = true;
   }
 
   editCurrentSchedule(sched: SchedTime){
     console.log("editing: "+sched.timeid+" on day: "+this.currentSchedule.day);
+    this.navCtrl.push(ScheduleDetail, {currentSchedule: this.currentSchedule, schedtime: sched});
   }
 
   public toggleSection(i: number, schedule: Schedule) {
@@ -44,9 +46,13 @@ export class SchedulePage implements AfterViewInit{
     this.currentSchedule.sched_times[i].open = !this.currentSchedule.sched_times[i].open;
   } 
 
+  slideTo(i: number){
+    console.log("slide to number : "+i);
+    this.slides.slideTo(i);
+  }
+
   slideChanged() {
     let currentIndex = this.slides.getActiveIndex();
-    console.log('Current index is', currentIndex);
   }
 
 }

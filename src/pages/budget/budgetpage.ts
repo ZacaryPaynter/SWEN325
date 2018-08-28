@@ -104,11 +104,6 @@ export class BudgetPage implements OnInit {
     alert.present();
   }
 
-  private getIndexOfContact = (budgetId: String) => {
-    return this.budget.findIndex((budget) => {
-      return budget._id === budgetId;
-    });
-  }
 
   deleteBudget = (budgetId: String) => {
     var idx = this.getIndexOfBudget(budgetId);
@@ -127,7 +122,7 @@ export class BudgetPage implements OnInit {
   }
 
   updateBudget = (budget: Budget) => {
-    var idx = this.getIndexOfContact(budget._id);
+    var idx = this.getIndexOfBudget(budget._id);
     if (idx !== -1) {
       this.budget[idx] = budget;
       this.selectBudget(budget);

@@ -13,7 +13,7 @@
         <!-- <ion-spinner *ngIf="isLoading"></ion-spinner> -->
         <!-- Form for creating a new event -->
         <ion-card *ngIf="schedTime.title=='' && !isLoading" class="ion-card-border">
-            <form (submit)="createNewScheduleItem()">
+            <form (submit)="editCurrentSchedule(schedTime)">
                 <ion-item color="secondary">
                     <ion-label>Title</ion-label>
                     <ion-input type="text" [(ngModel)]="title" name="title"></ion-input>
@@ -22,7 +22,7 @@
                     <ion-label>Description</ion-label>
                     <ion-input type="text" [(ngModel)]="description" name="description"></ion-input>
                 </ion-item>
-                <ion-list radio-group [(ngModel)]="category" name="category">
+                <ion-list radio-group [(ngModel)]="categoryValue" name="categoryValue">
                     <ion-item color="secondary">
                         <ion-label>Home</ion-label>
                         <ion-radio value=0></ion-radio>
@@ -47,16 +47,16 @@
     
         <!-- Form for editing the current budget item-->
         <ion-card *ngIf="schedTime.title!='' && !isLoading" class="ion-card-border">
-            <form (submit)="editCurrentBudgetItem(budgetItem)">
+            <form (submit)="editCurrentSchedule(schedTime)">
                 <ion-item color="secondary">
                     <ion-label>Title</ion-label>
                     <ion-input type="text" [(ngModel)]="title" name="title" [placeholder]="schedTime.title"></ion-input>
                 </ion-item>
                 <ion-item color="secondary">
                     <ion-label>Description</ion-label>
-                    <ion-input type="number" [(ngModel)]="description" name="description" [placeholder]="schedTime.description"></ion-input>
+                    <ion-input type="text" [(ngModel)]="description" name="description" [placeholder]="schedTime.description"></ion-input>
                 </ion-item>
-                <ion-list radio-group [(ngModel)]="category" name="category">
+                <ion-list radio-group [(ngModel)]="categoryValue" name="categoryValue">
                         <ion-item color="secondary">
                             <ion-label>Home</ion-label>
                             <ion-radio value=0></ion-radio>
@@ -72,7 +72,7 @@
                             <ion-item color="secondary">
                                     <ion-label>Misc</ion-label>
                                     <ion-radio value=3></ion-radio>
-                                </ion-item>
+                            </ion-item>
                     </ion-list>
                 <p class="errMsg" *ngIf="formInvalid"> Form is invalid: {{errMsg}}</p>
                 <button ion-button type="submit" block>Edit Event Item</button>

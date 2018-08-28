@@ -3,4 +3,5 @@ export class SchedTime {
     title: string;
     description: string;
     category: string;
+    open: boolean;
   }

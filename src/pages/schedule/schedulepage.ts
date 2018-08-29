@@ -33,7 +33,6 @@ export class SchedulePage implements AfterViewInit{
   }
 
   ngAfterViewInit() {
-    //this.slides.freeMode = true;
   }
 
   editCurrentSchedule(sched: SchedTime){
@@ -49,8 +48,5 @@ export class SchedulePage implements AfterViewInit{
     this.slides.slideTo(i);
   }
 
-  slideChanged() {
-    let currentIndex = this.slides.getActiveIndex();
-  }
 
 }

@@ -75,11 +75,30 @@ export class ScheduleDetail {
   }
 
   removeEvent(){
-    this.isRemoving = true;
-    this.title = "";
-    this.description = "";
-    this.category = "";
-    this.editCurrentSchedule();
+    const alert = this.alertCtrl.create({
+      title: 'Are you sure? ',
+      subTitle: 'Are you sure you want to remove the following event:',
+      message: this.schedTime.title + " : " + this.schedTime.description,
+      buttons: [
+        {
+          text: 'CANCEL',
+          handler: () => {
+            return;
+          }
+        },
+        {
+          text: 'OK',
+          handler: () => {
+            this.isRemoving = true;
+            this.title = "";
+            this.description = "";
+            this.category = "";
+            this.editCurrentSchedule();
+          }
+        },
+      ]
+    });
+    alert.present();
   }
 
   editCurrentSchedule(){

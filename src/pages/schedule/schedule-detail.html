@@ -10,9 +10,9 @@
     </ion-header>
     
     <ion-content class="gradient" padding>
-        <!-- <ion-spinner *ngIf="isLoading"></ion-spinner> -->
+        <ion-spinner *ngIf="isLoading"></ion-spinner>
         <!-- Form for creating a new event -->
-        <ion-card *ngIf="schedTime.title=='' && !isLoading" class="ion-card-border">
+        <ion-card *ngIf="schedTime.title=='' && !isLoading && !isRemoving" class="ion-card-border">
             <form (submit)="editCurrentSchedule(schedTime)">
                 <ion-item color="secondary">
                     <ion-label>Title</ion-label>
@@ -46,7 +46,7 @@
         </ion-card>
     
         <!-- Form for editing the current budget item-->
-        <ion-card *ngIf="schedTime.title!='' && !isLoading" class="ion-card-border">
+        <ion-card *ngIf="schedTime.title!='' && isEdit && !isLoading" class="ion-card-border">
             <form (submit)="editCurrentSchedule(schedTime)">
                 <ion-item color="secondary">
                     <ion-label>Title</ion-label>
@@ -75,7 +75,8 @@
                             </ion-item>
                     </ion-list>
                 <p class="errMsg" *ngIf="formInvalid"> Form is invalid: {{errMsg}}</p>
-                <button ion-button type="submit" block>Edit Event Item</button>
+                <button ion-button type="submit" block color="yellow">Edit Event</button>
             </form>
+            <button ion-button (click)="removeEvent()" block>Remove Event</button>
          </ion-card> 
     </ion-content>

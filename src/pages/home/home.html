@@ -1,8 +1,11 @@
 <ion-header>
     <ion-navbar color='titleNavBar'>
-    <ion-title>
-     {{user}}'s To-Do
+      <ion-title *ngIf="user!=''">
+        {{user}}'s To-Do
     </ion-title>
+    <ion-title *ngIf="user==''">
+       To-Do
+  </ion-title>
   </ion-navbar>
 </ion-header>
 

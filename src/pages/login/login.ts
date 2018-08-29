@@ -5,20 +5,19 @@ import { NgRedux } from 'ng2-redux';
 import { MyState } from '../../store/store';
 import { LOGIN } from '../../store/actions';
 
-
 @Component({
     templateUrl: 'login.html'
   })
   export class LoginPage {
-    email: string;
-    password: string;
+    username: string = "";
+    password: string = "";
     
     constructor(public navCtrl: NavController, private ngRedux: NgRedux<MyState>) {
-  
+
     }
 
     login(){
-      this.ngRedux.dispatch({type:LOGIN, email:this.email, password:this.password });
-      this.navCtrl.push(TabsPage, {email: this.email});
+      this.ngRedux.dispatch({type:LOGIN, email:this.username, password:this.password });
+      this.navCtrl.push(TabsPage, {email: this.username});
     }
   }

@@ -1,8 +1,11 @@
 <ion-header>
   <ion-navbar color='titleNavBar'>
-    <ion-title>
+    <ion-title *ngIf="user!=''">
         {{user}}'s Budget
     </ion-title>
+    <ion-title *ngIf="user==''">
+       Budget
+  </ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -24,9 +27,8 @@
               </div>
       </ion-item>
     </ion-card>
-<ion-card *ngIf="budget.length <= 0" class="ion-card-border">
-      <ion-spinner></ion-spinner>
-</ion-card>
+<ion-spinner flex *ngIf="budget.length <= 0" style="float: center;"></ion-spinner>
+
 
 <ion-card *ngIf="budget.length > 0" class="ion-card-border">
   <ion-card-header>
@@ -49,7 +51,7 @@
                     <ion-icon name="clipboard"></ion-icon> Edit
                   </button>
               <button ion-button (click)="removeCurrentBudget(bud)" color="primary">
-                <ion-icon name="trash"></ion-icon> Delete
+                <ion-icon name="trash"></ion-icon> Remove
               </button>
             </ion-item-options>
       </ion-item-sliding>

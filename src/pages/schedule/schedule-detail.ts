@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { Schedule } from './schedule';
 import { ScheduleService } from './schedule.service';
-import { NavController, AlertController, Events, NavParams } from 'ionic-angular';
-import { SpinnerDialog } from '@ionic-native/spinner-dialog';
+import { NavController, AlertController, NavParams } from 'ionic-angular';
 import { SchedTime } from './schedtime';
 
 
@@ -32,22 +31,18 @@ export class ScheduleDetail {
   formInvalid = false;
 
   isLoading: boolean = false;
-  //isEdit: boolean = false;
+  isEdit: boolean = false;
+  isRemoving: boolean = false;
 
 
-  constructor(public navCtrl: NavController, private event: Events, private spinnerDialog: SpinnerDialog,
-    public alertCtrl: AlertController, private scheduleService: ScheduleService, private navParams: NavParams ) {
-     // if (this.navParams.get('currSchedule')!=null){
-        //console.log("edit instead of new Schedule");
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, 
+    private scheduleService: ScheduleService, private navParams: NavParams ) {
         this.scheduleItem = this.navParams.get('currentSchedule');
         this.schedTime = this.navParams.get('schedtime');
-        console.log();
-        //this.isEdit = true;
-     // }
+        if (this.schedTime.title!=''){ this.isEdit = true; }
   }
 
   formValidator = () => {
-    console.log("categoryValue is: "+this.categoryValue);
 
     if (this.categoryValue==0){
       this.category="home"
@@ -60,11 +55,11 @@ export class ScheduleDetail {
     } 
 
     if (this.title == null) {
-        this.errMsg = "Please enter a numerical amount"
+        this.errMsg = "Please enter a title"
       this.formInvalid = true;
       return false;
     } else if (this.description == null) {
-      this.errMsg = "Please select income or outcome"
+      this.errMsg = "Please enter a description"
       this.formInvalid = true;
       return false;
     } else if (this.category == null) {
@@ -72,17 +67,22 @@ export class ScheduleDetail {
         this.formInvalid = true;
         return false;
       }else { 
+        console.log("form is valid apparently");
       this.formInvalid = false;
       this.isLoading=true;
       return true;
      }
   }
 
+  removeEvent(){
+    this.isRemoving = true;
+    this.title = "";
+    this.description = "";
+    this.category = "";
+    this.editCurrentSchedule();
+  }
 
   editCurrentSchedule(){
-    //get the sched time in this.currentSchedule.sche_times array 
-    //update it to have new values that have been entered
-    //send the entire schedule to the service to be updated on the server
     if (this.formValidator())
     {
       this.schedTime.title = this.title;
@@ -91,38 +91,15 @@ export class ScheduleDetail {
       this.schedTime.open = false;
       this.updateScheduleSchedTime(this.schedTime);
       this.updateSchedule(this.scheduleItem);
-    } else {return;}
+    } 
   }
 
   selectSchedule(schedule: Schedule) {
     this.scheduleItem = schedule;
   }
 
-  createSchedule(schedule: Schedule) {
-      //empty even
-    this.scheduleService.updateSchedule(schedule).then((newSchedule: Schedule) => {
-      //this.isEdit = false;
-      this.isLoading = false;
-      const alert = this.alertCtrl.create({
-        title: 'Schedule Event Created',
-        subTitle: 'Successfully created Event',
-        message: "Event: " + newSchedule.day ,
-        buttons: [
-          {
-            text: 'OK',
-            handler: () => {
-              this.event.publish('schedule:created', schedule);
-              this.navCtrl.pop();
-            }
-          }
-        ]
-      });
-      alert.present();
-    });
-  }
 
   private getIndexOfSchedTime = (timeId: number) => {
-    console.log("timeid is: " + timeId);
     return this.scheduleItem.sched_times.findIndex((schedTime) => {
       return schedTime.timeid === timeId;
     });
@@ -131,7 +108,6 @@ export class ScheduleDetail {
   updateScheduleSchedTime = (schedtime: SchedTime) => {
     var idx = this.getIndexOfSchedTime(schedtime.timeid);
     if (idx !== -1) {
-      console.log("got index of schedtime and updated scheduleditem");
       this.scheduleItem.sched_times[idx] = schedtime;
       this.selectSchedule(this.scheduleItem);
     }
@@ -141,23 +117,16 @@ export class ScheduleDetail {
 
   updateSchedule(schedule: Schedule) {
     this.scheduleService.updateSchedule(schedule).then((newSchedule: Schedule) => {
-      console.log("successfully back from server "+newSchedule.day);
-      for (var i=0; i<newSchedule.sched_times.length; i++){
-        console.log("timeid: "+newSchedule.sched_times[i].timeid+" title: "+
-        newSchedule.sched_times[i].title+" desc: "+newSchedule.sched_times[i].description + 
-        " category: "+newSchedule.sched_times[i].category);
-      }
-      //this.isEdit = false;
+      this.isEdit = false;
       this.isLoading = false;
       const alert = this.alertCtrl.create({
-        title: 'Schedule Event Edited',
-        subTitle: 'Successfully edited Event',
-        message: "Event: " + newSchedule.day ,
+        title: 'Success',
+        subTitle: 'Event Updated',
+        message: "Event changed on: " + newSchedule.day + " at: "+this.schedTime.timeid,
         buttons: [
           {
             text: 'OK',
             handler: () => {
-              this.event.publish('schedule:edited', schedule);
               this.navCtrl.pop();
             }
           }

@@ -37,7 +37,6 @@ export class SchedulePage implements AfterViewInit{
   }
 
   editCurrentSchedule(sched: SchedTime){
-    console.log("editing: "+sched.timeid+" on day: "+this.currentSchedule.day);
     this.navCtrl.push(ScheduleDetail, {currentSchedule: this.currentSchedule, schedtime: sched});
   }
 
@@ -47,7 +46,6 @@ export class SchedulePage implements AfterViewInit{
   } 
 
   slideTo(i: number){
-    console.log("slide to number : "+i);
     this.slides.slideTo(i);
   }
 

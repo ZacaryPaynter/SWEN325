@@ -1,28 +1,52 @@
 <ion-header>
     <ion-navbar color='titleNavBar'>
-      <ion-title *ngIf="user!=''">
-        {{user}}'s To-Do
-    </ion-title>
-    <ion-title *ngIf="user==''">
-       To-Do
-  </ion-title>
-  </ion-navbar>
+        <ion-title *ngIf="user!=''">
+            {{user}}'s To-Do
+        </ion-title>
+        <ion-title *ngIf="user==''">
+            To-Do
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding class="gradient">
-  <ion-card class="ion-card-border">
-  <ion-list>
-    <ion-item-sliding *ngFor="let item of tasks">
-      <ion-item text-center color="secondary">
-          <p>{{item.title}}</p>
-      </ion-item>
-      <ion-item-options side="right">
-          <button ion-button color="secondary">
-            <ion-icon name="checkmark"></ion-icon>
-            Complete
-          </button>
-        </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
-  </ion-card>
+    <ion-card class="ion-card-border">
+        <div padding>
+            <ion-segment [(ngModel)]="list">
+                <ion-segment-button value="todo">
+                    Todo
+                </ion-segment-button>
+                <ion-segment-button value="doing">
+                    Doing
+                </ion-segment-button>
+                <ion-segment-button value="done">
+                    Done
+                </ion-segment-button>
+            </ion-segment>
+        </div>
+        <ion-card class="ion-card-border">
+            <div [ngSwitch]="list">
+                <ion-list *ngSwitchCase="'todo'" class="list-taksLists">
+                    <ion-item color = "secondary">
+                        from todos
+                    </ion-item>
+
+                </ion-list>
+
+                <ion-list *ngSwitchCase="'doing'">
+                    <ion-item>
+                        doing list
+                    </ion-item>
+
+                </ion-list>
+                <ion-list *ngSwitchCase="'done'">
+                    <ion-item>
+                        donzies list
+                    </ion-item>
+
+                </ion-list>
+            </div>
+        </ion-card>
+    </ion-card>
+
 </ion-content>

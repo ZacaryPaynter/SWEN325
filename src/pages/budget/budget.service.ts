@@ -9,14 +9,12 @@ export class BudgetService {
 
     constructor (private http: Http) {}
 
-
     @Output() addBudget: EventEmitter<Budget> = new EventEmitter();
     addNewBudget(budget: Budget)
     {
       this.addBudget.emit(budget);
     }
   
-
     // get("/api/budget")
     getBudgets(): Promise<void | Budget[]> {
       return this.http.get(this.BudgetsUrl)

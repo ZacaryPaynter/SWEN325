@@ -30,7 +30,6 @@ export class BudgetDetail {
   constructor(public navCtrl: NavController, private event: Events, private spinnerDialog: SpinnerDialog,
     public alertCtrl: AlertController, private budgetService: BudgetService, private navParams: NavParams ) {
       if (this.navParams.get('currBudget')!=null){
-        console.log("edit instead of new");
         this.budgetItem = this.navParams.get('currBudget');
         this.isEdit = true;
       }

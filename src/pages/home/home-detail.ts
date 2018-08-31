@@ -11,6 +11,9 @@ import { HomeItem } from './home-item';
 
 export class HomeDetail {
  homeItem: HomeItem;
+ title: string;
+ description: string;
+ list: number;
 
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, 
@@ -18,6 +21,14 @@ export class HomeDetail {
         this.homeItem = this.navParams.get("homeitem");
   }
 
+  removeCurrentItem(){
+    console.log("remove task")
+  }
+
+  editCurrentItem(item: HomeItem){
+    console.log("edit the item: "+item.title+" desc "+item.description+" list: "+item.list);
+    console.log("to be : "+this.title+" desc "+this.description+" list: "+this.list);
+  }
  
   
 }

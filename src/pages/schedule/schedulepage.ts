@@ -21,8 +21,6 @@ export class SchedulePage {
   schedules: Schedule[];
   currentSchedule: Schedule;
 
-
-
   constructor(public navCtrl: NavController, private ngRedux: NgRedux<MyState>,
     private scheduleService: ScheduleService) {
     this.user = this.ngRedux.getState().email;
@@ -31,6 +29,7 @@ export class SchedulePage {
     .getSchedules()
     .then((schedule: Schedule[]) => {
       this.schedules = schedule.map((schedule) => {
+
         return schedule;
       });
     }); 
@@ -39,8 +38,6 @@ export class SchedulePage {
   ionViewDidLoad(){
     this.fab.toggleList();
  }
-
-
 
   editCurrentSchedule(sched: SchedTime){
     this.navCtrl.push(ScheduleDetail, {currentSchedule: this.currentSchedule, schedtime: sched});
@@ -54,6 +51,5 @@ export class SchedulePage {
   slideTo(i: number){
     this.slides.slideTo(i);
   }
-
 
 }

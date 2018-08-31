@@ -18,13 +18,17 @@
                     <!-- First Level -->
                     <ion-item *ngFor="let sched of s.sched_times; let i = index" no-lines color="secondary">
                         <!-- Toggle Button -->
-                        <button ion-item (click)="toggleSection(i, s)" detail-none color="secondary">
+                        <button ion-item *ngIf="sched.title!=''" (click)="toggleSection(i, s)" detail-none color="secondary">
                             <h2 *ngIf="i < 4">{{ sched.timeid }}:00 AM </h2>
                             <h2 *ngIf="i >= 4">{{ sched.timeid }}:00 PM</h2>
-                            <h2 text-capitalize>{{sched.title}}</h2>
-                            <!-- <h2 text-capitalize>{{ sched.title }}</h2> -->
+                            <h2 text-capitalize *ngIf="!sched.open">{{sched.title}}</h2>
                             <ion-icon item-right name="arrow-forward" *ngIf="!sched.open" color="danger"></ion-icon>
                             <ion-icon item-right name="arrow-down" *ngIf="sched.open" color="danger"></ion-icon>
+                        </button>
+                        <button ion-item *ngIf="sched.title==''" (click)="editCurrentSchedule(sched)" detail-none color="secondary">
+                            <h2 *ngIf="i < 4">{{ sched.timeid }}:00 AM </h2>
+                            <h2 *ngIf="i >= 4">{{ sched.timeid }}:00 PM</h2>
+                            <ion-icon item-right name="add-circle" item-end color="danger"></ion-icon>
                         </button>
                         <ion-item *ngIf="sched.open" color="secondary">
                             <h2 text-uppercase>{{ sched.title }}</h2>
@@ -49,7 +53,7 @@
             </ion-card>
         </ion-slide>
     </ion-slides>
-    <ion-fab right bottom>
+    <ion-fab #fab right bottom>
         <button ion-fab mini color="primary"><ion-icon name="arrow-dropleft"></ion-icon></button>
         <ion-fab-list side="left" no-padding>
             <button (click)="slideTo(6)"  ion-fab class="fab-button-small" color="primary">S</button>

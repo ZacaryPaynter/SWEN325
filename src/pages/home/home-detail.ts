@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, NavParams } from 'ionic-angular';
+import { NavController, AlertController, NavParams, Events } from 'ionic-angular';
 import { HomeItem } from './home-item';
 import { HomeService } from './home-service';
 
@@ -22,7 +22,7 @@ export class HomeDetail {
 
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, 
-      private navParams: NavParams, private service : HomeService) {
+      private navParams: NavParams, private service : HomeService, private event: Events) {
         this.homeItem = this.navParams.get("homeitem");
   }
 
@@ -42,9 +42,11 @@ export class HomeDetail {
         {
           text: 'OK',
           handler: () => {
-            this.service.deleteItem(this.homeItem._id);
-            //TODO: publish the event
-            this.navCtrl.pop();
+            this.service.deleteItem(this.homeItem._id).then(()=>{
+              this.event.publish('task:change');
+              this.navCtrl.pop();
+            });
+           
           }
         },
       ]
@@ -101,7 +103,7 @@ export class HomeDetail {
           {
             text: 'OK',
             handler: () => {
-              // TODO: publish the event this.event.publish('budget:edited', budget);
+              this.event.publish('task:change');
               this.navCtrl.pop();
             }
           }

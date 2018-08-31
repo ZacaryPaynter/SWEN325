@@ -39,6 +39,8 @@ export class ScheduleDetail {
     private scheduleService: ScheduleService, private navParams: NavParams ) {
         this.scheduleItem = this.navParams.get('currentSchedule');
         this.schedTime = this.navParams.get('schedtime');
+        this.title = this.schedTime.title;
+        this.description = this.schedTime.description;
         if (this.schedTime.title!=''){ this.isEdit = true; }
   }
 

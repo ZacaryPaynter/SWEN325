@@ -32,6 +32,9 @@ export class BudgetDetail {
       if (this.navParams.get('currBudget')!=null){
         this.budgetItem = this.navParams.get('currBudget');
         this.isEdit = true;
+        this.title = this.budgetItem.title;
+        this.amount = this.budgetItem.amount;
+        
       }
       this.spinnerDialog.show();
   }

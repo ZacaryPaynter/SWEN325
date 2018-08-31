@@ -13,11 +13,11 @@
             <form (submit)="editCurrentItem(homeItem)">
                 <ion-item color="secondary">
                     <ion-label>Title</ion-label>
-                    <ion-input type="text" [(ngModel)]="title" name="title" [placeholder]="homeItem.title"></ion-input>
+                    <ion-input type="text" [(ngModel)]="title" [(placeholder)]= "this.homeItem.title" [ngModelOptions]="{standalone: true}"></ion-input>
                 </ion-item>
                 <ion-item color="secondary">
                     <ion-label>Description</ion-label>
-                    <ion-input type="text" [(ngModel)]="description" name="description" [placeholder]="homeItem.description"></ion-input>
+                    <ion-input type="text" [(ngModel)]="description" name="description" [(placeholder)] = "this.homeItem.description" [ngModelOptions]="{standalone: true}"></ion-input>
                 </ion-item>
                 <ion-list radio-group [(ngModel)]="list" name="list">
                         <ion-item color="secondary">

@@ -10,17 +10,17 @@
 </ion-header>
 
 <ion-content class="gradient" padding>
-    <ion-spinner *ngIf="isLoading"></ion-spinner>
+    <ion-spinner *ngIf="isLoading" style="magin:45%"></ion-spinner>
     <!-- Form for creating a new budget item -->
     <ion-card *ngIf="budgetItem==null && !isLoading" class="ion-card-border">
         <form (submit)="createNewBudgetItem()">
             <ion-item color="secondary">
                 <ion-label>Title</ion-label>
-                <ion-input type="text" [(ngModel)]="title" name="title"></ion-input>
+                <ion-input type="text" [(ngModel)]="title" name="title" placeholder = "title" ></ion-input>
             </ion-item>
             <ion-item color="secondary">
                 <ion-label>Amount</ion-label>
-                <ion-input type="number" [(ngModel)]="amount" name="amount"></ion-input>
+                <ion-input type="number" [(ngModel)]="amount" name="amount" placeholder = "amount"></ion-input>
             </ion-item>
             <ion-list radio-group [(ngModel)]="isIncome" name="isIncome">
                 <ion-item color="secondary">

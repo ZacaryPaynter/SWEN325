@@ -17,19 +17,24 @@ export class HomeAddDetail {
  description: string = "";
  list: number = 0;
 
- isLoading : boolean = false;
- isEdit : boolean = true;
+ errMsg: string;
+ formInvalid : boolean  = false;
 
+ isLoading : boolean = false;
+ isRemoving : boolean = false;
+ isEdit : boolean = true;
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, private service: HomeService, private event: Events) {
        this.homeItem = {
         title: "" ,
         description: "",
-        list: 0
+        list: 1
        }
   }
 
   addNewItem(){
+    if(!this.formValidator()){return;}
+
     this.isEdit = false;
     this.isLoading = true;
     this.homeItem.title = this.title;
@@ -55,5 +60,28 @@ export class HomeAddDetail {
       alert.present();
     }); 
      
+  }
+
+  formValidator = () => {
+
+    if (this.title == "") {
+      this.errMsg = "Please enter a title"
+      this.formInvalid = true;
+      return false;
+    } else if (this.description == "") {
+      this.errMsg = "Please enter a description"
+      this.formInvalid = true;
+      return false;
+    }
+    else if (this.list == 0) {
+      this.errMsg = "Please select a list"
+      this.formInvalid = true;
+      return false;
+    } else { 
+      this.formInvalid = false;
+      this.isLoading=true;
+      this.isEdit = false;
+      return true;
+     }
   }
 }

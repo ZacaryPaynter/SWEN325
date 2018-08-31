@@ -2,3 +2,12 @@
   max-height: 300px;
   overflow-y: scroll;
 }
+ion-spinner {
+  
+  position: fixed;
+  left:50%;
+  top:50%;
+  width: 100px;
+  
+  margin: -50px 0 0 -50px;
+}

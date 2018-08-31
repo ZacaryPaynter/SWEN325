@@ -29,6 +29,8 @@ export class HomeDetail {
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, 
       private navParams: NavParams, private service : HomeService, private event: Events) {
         this.homeItem = this.navParams.get("homeitem");
+        this.title = this.homeItem.title;
+        this.description = this.homeItem.description;
   }
 
   removeCurrentItem() {

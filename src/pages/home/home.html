@@ -27,21 +27,33 @@
         <ion-card class="ion-card-border">
             <div [ngSwitch]="list">
                 <ion-list *ngSwitchCase="'todo'" class="list-taksLists">
-                    <ion-item color = "secondary">
-                        from todos
+                    <ion-item *ngFor='let task of todoList; let i = index' color="secondary">
+                        <h2 text-capitalize style="float:left;">{{task.title}}</h2>
+                        <button (click)="manage(1,i)" item-right>
+                            <ion-icon name="more" style="float:right;"></ion-icon>
+                        </button>
                     </ion-item>
 
                 </ion-list>
 
                 <ion-list *ngSwitchCase="'doing'">
-                    <ion-item>
-                        doing list
+
+                    <ion-item *ngFor='let task of doingList; let i = index' color="secondary">
+                        <h2 text-capitalize style="float:left;">{{task.title}}</h2>
+                        <button (click)="manage(2,i)" item-right>
+                            <ion-icon name="more"  style="float:right;"></ion-icon>
+                        </button>
+
+
                     </ion-item>
 
                 </ion-list>
                 <ion-list *ngSwitchCase="'done'">
-                    <ion-item>
-                        donzies list
+                    <ion-item *ngFor='let task of doneList; let i = index' color="secondary">
+                        <h2 text-capitalize style="float:left;">{{task.title}}</h2>
+                        <button (click)="manage(3,i)" item-right>
+                            <ion-icon name="more" style="float:right;"></ion-icon>
+                        </button>
                     </ion-item>
 
                 </ion-list>

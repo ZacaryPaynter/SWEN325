@@ -24,6 +24,7 @@ import { HttpModule } from '@angular/http';
 import { OverslideDirective } from '../directives/overslide/overslide';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { ScheduleDetail } from '../pages/schedule/schedule-detail';
+import { HomeDetail } from '../pages/home/home-detail';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ScheduleDetail } from '../pages/schedule/schedule-detail';
     BudgetPage,
     BudgetDetail,
     HomePage,
+    HomeDetail,
     LoginPage,
     OverslideDirective,
     TabsPage,
@@ -50,6 +52,7 @@ import { ScheduleDetail } from '../pages/schedule/schedule-detail';
     BudgetPage,
     BudgetDetail,
     HomePage,
+    HomeDetail,
     LoginPage,
     TabsPage,
     SchedulePage, 

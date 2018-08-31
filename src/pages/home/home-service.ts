@@ -35,22 +35,22 @@ export class HomeService {
 
     // // get("/api/budget/:id") endpoint not used by Angular app
 
-    // delete("/api/tasks/:id")
-    deleteBudget(delTasksId: String): Promise<void | String> {
-      return this.http.delete(this.TasksUrl + '/' + delTasksId)
-                 .toPromise()
-                 .then(response => response.json() as String)
-                 .catch(this.handleError);
-    }
+      // delete("/api/tasks/:id")
+      deleteBudget(delTasksId: String): Promise<void | String> {
+        return this.http.delete(this.TasksUrl + '/' + delTasksId)
+                   .toPromise()
+                   .then(response => response.json() as String)
+                   .catch(this.handleError);
+      }
 
-    // put("/api/tasks/:id")
-    updateItem(putItem: HomeItem): Promise<void | HomeItem> {
-      var putUrl = this.TasksUrl + '/' + putItem._id;
-      return this.http.put(putUrl, putItem)
-                 .toPromise()
-                 .then(response => response.json() as HomeItem)
-                 .catch(this.handleError);
-    }
+     // put("/api/tasks/:id")
+     updateItem(putItem: HomeItem): Promise<void | HomeItem> {
+        var putUrl = this.TasksUrl + '/' + putItem._id;
+        return this.http.put(putUrl, putItem)
+                   .toPromise()
+                   .then(response => response.json() as HomeItem)
+                   .catch(this.handleError);
+      }
 
     private handleError (error: any) {
       let errMsg = (error.message) ? error.message :

@@ -1,0 +1,41 @@
+<ion-header>
+        <ion-navbar color='titleNavBar'>
+            <ion-title >
+               Add New Item:
+            </ion-title>
+        </ion-navbar>
+    </ion-header>
+    
+    <ion-content class="gradient" padding>
+       
+           <!-- Form for editing the current budget item-->
+           <ion-card class="ion-card-border">
+            <form (submit)="addNewItem()">
+                <ion-item color="secondary">
+                    <ion-label>Title</ion-label>
+                    <ion-input type="text" [(ngModel)]="title" name="title"></ion-input>
+                </ion-item>
+                <ion-item color="secondary">
+                    <ion-label>Description</ion-label>
+                    <ion-input type="text" [(ngModel)]="description" name="description"></ion-input>
+                </ion-item>
+                <ion-list radio-group [(ngModel)]="list" name="list">
+                        <ion-item color="secondary">
+                            <ion-label>Todo</ion-label>
+                            <ion-radio value=1></ion-radio>
+                        </ion-item>
+                        <ion-item color="secondary">
+                            <ion-label>Doing</ion-label>
+                            <ion-radio value=2></ion-radio>
+                        </ion-item>
+                        <ion-item color="secondary">
+                                <ion-label>Done</ion-label>
+                                <ion-radio value=3></ion-radio>
+                            </ion-item>
+                    </ion-list>
+                <p class="errMsg" *ngIf="formInvalid"> Form is invalid: {{errMsg}}</p>
+                <button ion-button type="submit" block color="yellow">Add Task</button>
+            </form>
+        
+         </ion-card> 
+         </ion-content>

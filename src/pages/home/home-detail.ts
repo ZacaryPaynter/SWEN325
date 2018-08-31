@@ -26,10 +26,32 @@ export class HomeDetail {
         this.homeItem = this.navParams.get("homeitem");
   }
 
-  removeCurrentItem(){
+  removeCurrentItem() {
     console.log("remove task")
-    
+    const alert = this.alertCtrl.create({
+      title: 'Are you sure? ',
+      subTitle: 'Are you sure you want to remove the following budget item:',
+      message: this.homeItem.title + " : $" + this.homeItem.description,
+      buttons: [
+        {
+          text: 'CANCEL',
+          handler: () => {
+            return;
+          }
+        },
+        {
+          text: 'OK',
+          handler: () => {
+            this.service.deleteItem(this.homeItem._id);
+            //TODO: publish the event
+            this.navCtrl.pop();
+          }
+        },
+      ]
+    });
+    alert.present();
   }
+
 
   formValidator = () => {
 
@@ -79,7 +101,7 @@ export class HomeDetail {
           {
             text: 'OK',
             handler: () => {
-              // this.event.publish('budget:edited', budget);
+              // TODO: publish the event this.event.publish('budget:edited', budget);
               this.navCtrl.pop();
             }
           }

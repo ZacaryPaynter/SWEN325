@@ -1,17 +1,21 @@
 <ion-header>
     <ion-navbar color='titleNavBar'>
         <ion-title *ngIf="user!=''">
-            {{user}}'s To-Do
+            {{user}}'s Todo
         </ion-title>
         <ion-title *ngIf="user==''">
-            To-Do
+            Todo
         </ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding class="gradient">
+
+
+
     <ion-card class="ion-card-border">
         <div padding>
+          
             <ion-segment [(ngModel)]="list">
                 <ion-segment-button value="todo">
                     Todo
@@ -23,6 +27,9 @@
                     Done
                 </ion-segment-button>
             </ion-segment>
+            <button ion-button block style="margin-top:25px;" (click) = "addNewItem()">
+                    <ion-icon name="add" color="secondary" style="float:center;"></ion-icon>
+            </button>
         </div>
         <ion-card class="ion-card-border">
             <div [ngSwitch]="list">

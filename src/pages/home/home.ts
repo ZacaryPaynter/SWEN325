@@ -3,6 +3,7 @@ import { NavController, AlertController} from 'ionic-angular';
 import { NgRedux } from 'ng2-redux';
 import { MyState } from '../../store/store';
 import {HomeDetail} from './home-detail';
+import {HomeAddDetail} from './home-add-detail'
 import { HomeItem } from './home-item';
 import { HomeService } from './home-service';
 
@@ -70,21 +71,25 @@ export class HomePage {
       }
       this.navCtrl.push(HomeDetail, {homeitem: homeItem});
     }else if(x ==2){
-      var homeItem : HomeItem = {
+      var homeItem2 : HomeItem = {
         title : this.doingList[i].title,
         description : this.doingList[i].description,
         list: x
       }
-      this.navCtrl.push(HomeDetail, {homeitem: homeItem});
+      this.navCtrl.push(HomeDetail, {homeitem: homeItem2});
     }else{
-      var homeItem : HomeItem = {
+      var homeItem3 : HomeItem = {
         title : this.doneList[i].title,
         description : this.doneList[i].description,
         list: x
       }
-      this.navCtrl.push(HomeDetail, {homeitem: homeItem});
+      this.navCtrl.push(HomeDetail, {homeitem: homeItem3});
     }  
 
+  }
+
+  public addNewItem(){
+    this.navCtrl.push(HomeAddDetail);
   }
 
   showAlert() {

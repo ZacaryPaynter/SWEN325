@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController} from 'ionic-angular';
+import { NavController, AlertController, Events} from 'ionic-angular';
 import { NgRedux } from 'ng2-redux';
 import { MyState } from '../../store/store';
 import {HomeDetail} from './home-detail';
@@ -22,18 +22,23 @@ export class HomePage {
   doingList: HomeItem[];
   doneList: HomeItem[];
 
-  constructor(public navCtrl: NavController, private ngRedux: NgRedux<MyState>, public alertCtrl: AlertController, private service: HomeService) {
+  constructor(public navCtrl: NavController, private ngRedux: NgRedux<MyState>, public events: Events,
+    public alertCtrl: AlertController, private service: HomeService) {
     this.user = this.ngRedux.getState().email;
     this.password = this.ngRedux.getState().password;
    this.list = "todo";
   
     this.updateLists();
     this.showAlert();
+
+    events.subscribe('task:change', () => {
+      this.updateLists();
+    });
   }
 
 
   private updateLists(){
-
+    console.log("made it back to lists");
     this.todoList = [];
     this.doingList = [];
     this.doneList = [];
@@ -42,14 +47,12 @@ export class HomePage {
     this.service.getHomeItems().
     then((homeItem : HomeItem[]) => {
         this.fullList = homeItem.map((homeItem) => {
-          console.log("id: "+homeItem._id);
           return homeItem;
         });
       }
     ).then(()=>{
       for (var i = 0 ; i< this.fullList.length ; i++){
         if(this.fullList[i].list == 1){
-          console.log("id when copying: "+this.fullList[i]._id);
           this.todoList.push(this.fullList[i]);
         }else if (this.fullList[i].list ==2){
           this.doingList.push(this.fullList[i]);
@@ -60,7 +63,7 @@ export class HomePage {
     });
   }
   public manage(item: HomeItem) {
-    
+
     this.navCtrl.push(HomeDetail, {homeitem: item});
   }
 

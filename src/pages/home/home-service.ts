@@ -36,7 +36,7 @@ export class HomeService {
     // // get("/api/budget/:id") endpoint not used by Angular app
 
       // delete("/api/tasks/:id")
-      deleteBudget(delTasksId: String): Promise<void | String> {
+      deleteItem(delTasksId: String): Promise<void | String> {
         return this.http.delete(this.TasksUrl + '/' + delTasksId)
                    .toPromise()
                    .then(response => response.json() as String)

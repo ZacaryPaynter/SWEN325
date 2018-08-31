@@ -18,5 +18,4 @@ export class Schedule {
       this.sched_times[i].open = !this.sched_times[i].open;
     }
 
-
   }

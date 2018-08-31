@@ -25,19 +25,25 @@ export class HomePage {
     this.user = this.ngRedux.getState().email;
     this.password = this.ngRedux.getState().password;
    this.list = "todo";
+  
+    this.updateLists();
+    this.showAlert();
+  }
+
+
+  private updateLists(){
+
     this.todoList = [];
     this.doingList = [];
     this.doneList = [];
     this.fullList = [];
-    //cull 
-    // this.todoList =  [{title:"laundry", description:"do the laundry", open:false, list:1}, {title:"cleaning", description:"clean the bathroom", open:false, list:1}];
-    // this.doingList =  [{title:"laundry2", description:"do the laundry2", open:false, list:2}, {title:"cleaning2", description:"clean the2 bathroom",  open:false, list:2}];
-    // this.doneList =  [{title:"laundry3", description:"do the laundr3y", open:false, list:3}, {title:"cleani3ng", description:"clean the ba3throom", open:false, list:3}];
-    
+
     this.service.getHomeItems().then(
       (homeItem : HomeItem[]) => {
-        console.log(homeItem);
+    
+
         this.fullList = homeItem.map((homeItem) => {
+       
           return homeItem;
         });
       }
@@ -52,14 +58,7 @@ export class HomePage {
         }
        }
     });
-    
-    
-  
-
-    this.showAlert();
   }
-
-
   public manage(x:number,i:number) {
 
     if(x == 1){

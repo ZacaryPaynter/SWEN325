@@ -28,7 +28,7 @@ export class HomeDetail {
 
   removeCurrentItem(){
     console.log("remove task")
-
+    
   }
 
   formValidator = () => {
@@ -63,7 +63,7 @@ export class HomeDetail {
       item.description = this.description;
       item.list = this.list;
       // send this to the service, figure and publish 
-      //this.updateItem(item);
+      this.updateItem(item);
     } else {return;}
   }
  

@@ -39,18 +39,17 @@ export class HomePage {
     this.doneList = [];
     this.fullList = [];
 
-    this.service.getHomeItems().then(
-      (homeItem : HomeItem[]) => {
-    
-
+    this.service.getHomeItems().
+    then((homeItem : HomeItem[]) => {
         this.fullList = homeItem.map((homeItem) => {
-       
+          console.log("id: "+homeItem._id);
           return homeItem;
         });
       }
     ).then(()=>{
       for (var i = 0 ; i< this.fullList.length ; i++){
         if(this.fullList[i].list == 1){
+          console.log("id when copying: "+this.fullList[i]._id);
           this.todoList.push(this.fullList[i]);
         }else if (this.fullList[i].list ==2){
           this.doingList.push(this.fullList[i]);
@@ -60,32 +59,9 @@ export class HomePage {
        }
     });
   }
-  public manage(x:number,i:number) {
-
-    if(x == 1){
-      console.log("sending a todolist item with i: "+i);
-      var homeItem : HomeItem = {
-        title : this.todoList[i].title,
-        description : this.todoList[i].description,
-        list: x
-      }
-      this.navCtrl.push(HomeDetail, {homeitem: homeItem});
-    }else if(x ==2){
-      var homeItem2 : HomeItem = {
-        title : this.doingList[i].title,
-        description : this.doingList[i].description,
-        list: x
-      }
-      this.navCtrl.push(HomeDetail, {homeitem: homeItem2});
-    }else{
-      var homeItem3 : HomeItem = {
-        title : this.doneList[i].title,
-        description : this.doneList[i].description,
-        list: x
-      }
-      this.navCtrl.push(HomeDetail, {homeitem: homeItem3});
-    }  
-
+  public manage(item: HomeItem) {
+    
+    this.navCtrl.push(HomeDetail, {homeitem: item});
   }
 
   public addNewItem(){

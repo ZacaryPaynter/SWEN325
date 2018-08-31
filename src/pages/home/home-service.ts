@@ -45,6 +45,7 @@ export class HomeService {
 
      // put("/api/tasks/:id")
      updateItem(putItem: HomeItem): Promise<void | HomeItem> {
+       console.log("update item method in service");
         var putUrl = this.TasksUrl + '/' + putItem._id;
         return this.http.put(putUrl, putItem)
                    .toPromise()

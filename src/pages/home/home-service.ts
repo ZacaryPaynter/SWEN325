@@ -25,13 +25,13 @@ export class HomeService {
                  .catch(this.handleError);
     }
 
-    // // post("/api/budget")
-    // createBudget(newBudget: Budget): Promise<void | Budget> {
-    //   return this.http.post(this.BudgetsUrl, newBudget)
-    //              .toPromise()
-    //              .then(response => response.json() as Budget)
-    //              .catch(this.handleError);
-    // }
+   // post("/api/budget")
+    createItem(item: HomeItem): Promise<void | HomeItem> {
+      return this.http.post(this.TasksUrl, item)
+                 .toPromise()
+                 .then(response => response.json() as HomeItem)
+                 .catch(this.handleError);
+    }
 
     // // get("/api/budget/:id") endpoint not used by Angular app
 
@@ -45,7 +45,6 @@ export class HomeService {
 
      // put("/api/tasks/:id")
      updateItem(putItem: HomeItem): Promise<void | HomeItem> {
-       console.log("update item method in service");
         var putUrl = this.TasksUrl + '/' + putItem._id;
         return this.http.put(putUrl, putItem)
                    .toPromise()

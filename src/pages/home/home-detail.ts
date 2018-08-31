@@ -34,7 +34,6 @@ export class HomeDetail {
   }
 
   removeCurrentItem() {
-    console.log("remove task")
     const alert = this.alertCtrl.create({
       title: 'Are you sure? ',
       subTitle: 'Are you sure you want to remove the following budget item:',

@@ -69,7 +69,6 @@ export class ScheduleDetail {
         this.formInvalid = true;
         return false;
       }else { 
-        console.log("form is valid apparently");
       this.formInvalid = false;
       this.isLoading=true;
       return true;

@@ -102,7 +102,6 @@ export class BudgetDetail {
 
 
   createBudget(budget: Budget) {
-    console.log("making new budget: "+budget.title+" "+budget.amount+" "+budget.income+" "+budget._id);
     this.budgetService.createBudget(budget).then((newBudget: Budget) => {
       this.isLoading = false;
       const alert = this.alertCtrl.create({
@@ -113,7 +112,6 @@ export class BudgetDetail {
           {
             text: 'OK',
             handler: () => {
-              console.log("pressed OK");
               this.event.publish('budget:created', budget);
               this.navCtrl.pop();
             }

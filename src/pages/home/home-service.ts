@@ -1,4 +1,4 @@
-import { Injectable, Output, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HomeItem } from './home-item';
 import { Http } from '@angular/http';
 
@@ -9,13 +9,6 @@ export class HomeService {
 
     constructor (private http: Http) {}
 
-
-    // @Output() addHomeItem: EventEmitter<HomeItem> = new EventEmitter();
-    // addNewBudget(homeItem: HomeItem)
-    // {
-    //   this.addHomeItem.emit(homeItem);
-    // }
-  
 
     // get("/api/budget")
     getHomeItems(): Promise<void | HomeItem[]> {

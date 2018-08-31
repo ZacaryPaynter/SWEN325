@@ -34,7 +34,7 @@
     Current Budget Items:
   </ion-card-header>
   <ion-list class="list-of-budgets">
-      <ion-item-sliding (overslide)="handleOverslide(item)" *ngFor="let bud of budget" #item overslide>
+      <ion-item-sliding *ngFor="let bud of budget" >
           <ion-item color="secondary">
               <ion-label>
                   {{bud.title}}

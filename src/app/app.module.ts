@@ -21,7 +21,6 @@ import { INITIAL_STATE } from '../store/store';
 
 import { HttpModule } from '@angular/http';
 
-import { OverslideDirective } from '../directives/overslide/overslide';
 import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 import { ScheduleDetail } from '../pages/schedule/schedule-detail';
 import { HomeDetail } from '../pages/home/home-detail';
@@ -36,7 +35,6 @@ import {HomeAddDetail} from '../pages/home/home-add-detail';
     HomeAddDetail,
     HomeDetail,
     LoginPage,
-    OverslideDirective,
     TabsPage,
     SchedulePage, 
     Schedule,

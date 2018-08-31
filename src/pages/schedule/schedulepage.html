@@ -10,7 +10,8 @@
   </ion-header>
 
 <ion-content class="gradient">
-    <ion-slides>
+        <ion-spinner flex *ngIf="!isLoaded" style="float: center;"></ion-spinner>
+    <ion-slides *ngIf="isLoaded">
         <ion-slide class="format-slide" *ngFor="let s of schedules">
             <ion-card class="format-card">
                 <h1 text-uppercase>{{s.day}}</h1>

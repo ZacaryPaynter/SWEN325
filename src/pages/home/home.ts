@@ -22,6 +22,8 @@ export class HomePage {
   doingList: HomeItem[];
   doneList: HomeItem[];
 
+  isLoaded : boolean = false;
+
   constructor(public navCtrl: NavController, private ngRedux: NgRedux<MyState>, public events: Events,
     public alertCtrl: AlertController, private service: HomeService) {
     this.user = this.ngRedux.getState().email;
@@ -29,7 +31,6 @@ export class HomePage {
    this.list = "todo";
   
     this.updateLists();
-    this.showAlert();
 
     events.subscribe('task:change', () => {
       this.updateLists();
@@ -38,7 +39,6 @@ export class HomePage {
 
 
   private updateLists(){
-    console.log("made it back to lists");
     this.todoList = [];
     this.doingList = [];
     this.doneList = [];
@@ -60,6 +60,7 @@ export class HomePage {
           this.doneList.push(this.fullList[i]);
         }
        }
+       this.isLoaded = true;
     });
   }
   public manage(item: HomeItem) {

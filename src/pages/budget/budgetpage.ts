@@ -18,6 +18,8 @@ export class BudgetPage implements OnInit {
   spending: number
   totalAmount: number
 
+  isLoaded : boolean = false;
+
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public events: Events,
     private budgetService: BudgetService, private ngRedux: NgRedux<MyState>) {
     this.user = this.ngRedux.getState().email;
@@ -26,7 +28,6 @@ export class BudgetPage implements OnInit {
       this.spending = this.calculateSpending(this.budget);
     });
     events.subscribe('budget:edited', (budget) => {
-      //deal with updating budget in array
       this.updateBudget(budget);
       this.spending = this.calculateSpending(this.budget);
     });
@@ -42,10 +43,8 @@ export class BudgetPage implements OnInit {
           return budget;
         });
         this.spending = this.calculateSpending(this.budget);
+        this.isLoaded = true;
       });
-  }
-
-  handleOverslide(item) {
   }
 
   calculateSpending(budget: Budget[]) {

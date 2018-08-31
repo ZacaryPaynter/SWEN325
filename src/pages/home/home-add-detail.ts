@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, NavParams, Events } from 'ionic-angular';
+import { NavController, AlertController, Events } from 'ionic-angular';
 import { HomeItem } from './home-item';
 import { HomeService } from './home-service';
 
@@ -17,6 +17,9 @@ export class HomeAddDetail {
  description: string = "";
  list: number = 0;
 
+ isLoading : boolean = false;
+ isEdit : boolean = true;
+
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, private service: HomeService, private event: Events) {
        this.homeItem = {
@@ -27,12 +30,14 @@ export class HomeAddDetail {
   }
 
   addNewItem(){
-
+    this.isEdit = false;
+    this.isLoading = true;
     this.homeItem.title = this.title;
     this.homeItem.description = this.description;
     this.homeItem.list = this.list; 
 
     this.service.createItem(this.homeItem).then( (item:HomeItem) =>{
+      this.isLoading = false;
       const alert = this.alertCtrl.create({
         title: 'Item Edited',
         subTitle: 'Successfully edited Item',

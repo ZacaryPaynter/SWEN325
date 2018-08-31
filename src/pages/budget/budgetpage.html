@@ -27,10 +27,9 @@
               </div>
       </ion-item>
     </ion-card>
-<ion-spinner flex *ngIf="budget.length <= 0" style="float: center;"></ion-spinner>
 
-
-<ion-card *ngIf="budget.length > 0" class="ion-card-border">
+<ion-spinner flex *ngIf="!isLoaded" style="float: center;"></ion-spinner>
+<ion-card *ngIf="isLoaded" class="ion-card-border">
   <ion-card-header>
     Current Budget Items:
   </ion-card-header>

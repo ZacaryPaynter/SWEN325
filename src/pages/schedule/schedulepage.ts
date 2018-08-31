@@ -21,6 +21,8 @@ export class SchedulePage {
   schedules: Schedule[];
   currentSchedule: Schedule;
 
+  isLoaded : boolean = false;
+
   constructor(public navCtrl: NavController, private ngRedux: NgRedux<MyState>,
     private scheduleService: ScheduleService) {
     this.user = this.ngRedux.getState().email;
@@ -29,9 +31,9 @@ export class SchedulePage {
     .getSchedules()
     .then((schedule: Schedule[]) => {
       this.schedules = schedule.map((schedule) => {
-
         return schedule;
       });
+      this.isLoaded = true;
     }); 
   }
 

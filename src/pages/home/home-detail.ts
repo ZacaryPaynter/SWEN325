@@ -18,7 +18,12 @@ export class HomeDetail {
  list: number;
 
  errMsg: string;
- formInvalid = false;
+ formInvalid : boolean  = false;
+
+ isLoading : boolean = false;
+ isRemoving : boolean = false;
+ isEdit : boolean = true;
+
 
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, 
@@ -31,7 +36,7 @@ export class HomeDetail {
     const alert = this.alertCtrl.create({
       title: 'Are you sure? ',
       subTitle: 'Are you sure you want to remove the following budget item:',
-      message: this.homeItem.title + " : $" + this.homeItem.description,
+      message: this.homeItem.title + " : " + this.homeItem.description,
       buttons: [
         {
           text: 'CANCEL',
@@ -42,6 +47,8 @@ export class HomeDetail {
         {
           text: 'OK',
           handler: () => {
+            this.isRemoving = true;
+            this.isEdit = false;
             this.service.deleteItem(this.homeItem._id).then(()=>{
               this.event.publish('task:change');
               this.navCtrl.pop();
@@ -72,14 +79,13 @@ export class HomeDetail {
       return false;
     } else { 
       this.formInvalid = false;
-      //this.isLoading=true;
+      this.isLoading=true;
+      this.isEdit = false;
       return true;
      }
   }
 
   editCurrentItem(item: HomeItem){
-    console.log("edit the item: "+ item._id +" "+item.title+" desc "+item.description+" list: "+item.list);
-    console.log("to be : "+this.title+" desc "+this.description+" list: "+this.list);
     if (this.formValidator())
     {
       //edit the current budget item
@@ -93,12 +99,12 @@ export class HomeDetail {
  
   updateItem(item: HomeItem) {
     this.service.updateItem(item).then((newItem: HomeItem) => {
-      // this.isEdit = false;
-      // this.isLoading = false;
+      this.isRemoving = false;
+      this.isLoading = false;
       const alert = this.alertCtrl.create({
         title: 'Item Edited',
         subTitle: 'Successfully edited Item',
-        message: newItem.title + " : $" + newItem.description,
+        message: newItem.title + " : " + newItem.description,
         buttons: [
           {
             text: 'OK',

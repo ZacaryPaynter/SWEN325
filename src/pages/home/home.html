@@ -10,10 +10,8 @@
 </ion-header>
 
 <ion-content padding class="gradient">
-
-
-
-    <ion-card class="ion-card-border">
+<ion-spinner flex *ngIf="!isLoaded" style="float: center;"></ion-spinner>
+    <ion-card *ngIf="isLoaded" class="ion-card-border">
         <div padding>
           
             <ion-segment [(ngModel)]="list">
@@ -36,7 +34,7 @@
                 <ion-list *ngSwitchCase="'todo'" class="list-taksLists">
                     <ion-item *ngFor='let task of todoList; let i = index' color="secondary">
                         <h2 text-capitalize style="float:left;">{{task.title}}</h2>
-                        <button (click)="manage(1,i)" item-right>
+                        <button (click)="manage(task)" item-right>
                             <ion-icon name="more" style="float:right;"></ion-icon>
                         </button>
                     </ion-item>
@@ -47,7 +45,7 @@
 
                     <ion-item *ngFor='let task of doingList; let i = index' color="secondary">
                         <h2 text-capitalize style="float:left;">{{task.title}}</h2>
-                        <button (click)="manage(2,i)" item-right>
+                        <button (click)="manage(task)" item-right>
                             <ion-icon name="more"  style="float:right;"></ion-icon>
                         </button>
 
@@ -58,7 +56,7 @@
                 <ion-list *ngSwitchCase="'done'">
                     <ion-item *ngFor='let task of doneList; let i = index' color="secondary">
                         <h2 text-capitalize style="float:left;">{{task.title}}</h2>
-                        <button (click)="manage(3,i)" item-right>
+                        <button (click)="manage(task)" item-right>
                             <ion-icon name="more" style="float:right;"></ion-icon>
                         </button>
                     </ion-item>

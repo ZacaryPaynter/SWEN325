@@ -7,9 +7,9 @@
     </ion-header>
     
     <ion-content class="gradient" padding>
-       
+            <ion-spinner *ngIf="isLoading"></ion-spinner>
            <!-- Form for editing the current budget item-->
-           <ion-card class="ion-card-border">
+           <ion-card *ngIf="!isLoading && isEdit" class="ion-card-border">
             <form (submit)="addNewItem()">
                 <ion-item color="secondary">
                     <ion-label>Title</ion-label>
